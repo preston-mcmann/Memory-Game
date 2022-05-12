@@ -15,9 +15,11 @@ public class Home extends javax.swing.JFrame {
      * Creates new form Home cd
      */
     LoginUsers loginUsers;
+    int currentUser;
     public Home(LoginUsers loginUsers, int currentUser) {
         initComponents();
         this.loginUsers=loginUsers;
+        this.currentUser=currentUser;
         for (Sets Set : loginUsers.getUserList().get(currentUser).getSets()){
             SetSelectionBox.addItem(Set.getName());
         }
@@ -82,6 +84,11 @@ public class Home extends javax.swing.JFrame {
         CreateSetsButton.setText("Create Sets");
 
         EditSetsButton.setText("Edit Sets");
+        EditSetsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditSetsButtonActionPerformed(evt);
+            }
+        });
 
         FlashCardsButton.setText("Flash Cards");
 
@@ -146,6 +153,21 @@ public class Home extends javax.swing.JFrame {
             MatchingGameButton.setEnabled(false);
         }
     }//GEN-LAST:event_SetSelectionBoxItemStateChanged
+
+    private void EditSetsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditSetsButtonActionPerformed
+        int index = -1;
+        for (int i = 0; i < loginUsers.getUserList().get(currentUser).getSets().size(); i++) {
+             if(loginUsers.getUserList().get(currentUser).getSets().get(i).getName().equals(SetSelectionBox.getSelectedItem().toString())){
+                index = i;
+             }
+        }       
+        
+        
+        CreateSets createSetsPage = new CreateSets(this, true,loginUsers,loginUsers.getUserList().get(currentUser).getSets().get(index));
+        createSetsPage.setLocationRelativeTo(this);
+        this.dispose();
+        createSetsPage.setVisible(true);
+    }//GEN-LAST:event_EditSetsButtonActionPerformed
 
     /**
      * @param args the command line arguments
