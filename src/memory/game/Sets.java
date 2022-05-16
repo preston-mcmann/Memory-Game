@@ -4,10 +4,7 @@
  */
 package memory.game;
 
-/**
- *
- * @author mcman
- */
+
 public class Sets {
     String name;
     public Sets(String name){
@@ -21,4 +18,3 @@ public class Sets {
         this.name = name;
     }
     
-}
