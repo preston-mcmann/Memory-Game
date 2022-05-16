@@ -1,5 +1,8 @@
 package memory.game;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -20,8 +23,19 @@ public class Home extends javax.swing.JFrame {
         initComponents();
         this.loginUsers=loginUsers;
         this.currentUser=currentUser;
-        for (Sets Set : loginUsers.getUserList().get(currentUser).getSets()){
+        for(int i=0;i<loginUsers.getUser(currentUser).getSets().size();i++){
+            for(int x=1;i<loginUsers.getUser(currentUser).getSets().size()-1;i++){
+                if(loginUsers.getUser(currentUser).getSets().get(i).getName().equals(loginUsers.getUser(currentUser).getSets().get(x).getName())){
+                    loginUsers.getUser(currentUser).removeSets(loginUsers.getUser(currentUser).getSets().get(i));
+                }
+            }
+        }
+ 
+        for (Sets Set : loginUsers.getUser(currentUser).getSets()){
             SetSelectionBox.addItem(Set.getName());
+            for(Cards card: Set.getCards()){
+                System.out.println(card.getTerm());
+            }
         }
         SetSelectionBox.setEnabled(true);
         CreateSetsButton.setEnabled(true);
@@ -82,6 +96,11 @@ public class Home extends javax.swing.JFrame {
         });
 
         CreateSetsButton.setText("Create Sets");
+        CreateSetsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CreateSetsButtonActionPerformed(evt);
+            }
+        });
 
         EditSetsButton.setText("Edit Sets");
         EditSetsButton.addActionListener(new java.awt.event.ActionListener() {
@@ -147,27 +166,41 @@ public class Home extends javax.swing.JFrame {
             EditSetsButton.setEnabled(true);
             FlashCardsButton.setEnabled(true);
             MatchingGameButton.setEnabled(true);
+            
         }else{
             EditSetsButton.setEnabled(false);
             FlashCardsButton.setEnabled(false);
             MatchingGameButton.setEnabled(false);
+            
         }
     }//GEN-LAST:event_SetSelectionBoxItemStateChanged
 
     private void EditSetsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditSetsButtonActionPerformed
         int index = -1;
-        for (int i = 0; i < loginUsers.getUserList().get(currentUser).getSets().size(); i++) {
-             if(loginUsers.getUserList().get(currentUser).getSets().get(i).getName().equals(SetSelectionBox.getSelectedItem().toString())){
+        for (int i = 0; i < loginUsers.getUser(currentUser).getSets().size(); i++) {
+             if(loginUsers.getUser(currentUser).getSets().get(i).getName().equals(SetSelectionBox.getSelectedItem().toString())){
                 index = i;
+                loginUsers.getUser(currentUser).getSets().get(i).print();
              }
         }       
         
         
-        CreateSets createSetsPage = new CreateSets(this, true,loginUsers,loginUsers.getUserList().get(currentUser).getSets().get(index));
+        CreateSets createSetsPage = new CreateSets(this, true,loginUsers,loginUsers.getUser(currentUser).getSets().get(index),currentUser);
         createSetsPage.setLocationRelativeTo(this);
         this.dispose();
         createSetsPage.setVisible(true);
     }//GEN-LAST:event_EditSetsButtonActionPerformed
+
+    private void CreateSetsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateSetsButtonActionPerformed
+        ArrayList<Cards> cardList1 = new ArrayList<>();
+        Cards card = new Cards("","");
+        cardList1.add(card);
+        loginUsers.getUser(currentUser).makeSet("",cardList1);
+        CreateSets createSetsPage = new CreateSets(this, true,loginUsers,loginUsers.getUser(currentUser).makeSet("",cardList1),currentUser);
+        createSetsPage.setLocationRelativeTo(this);
+        this.dispose();
+        createSetsPage.setVisible(true);
+    }//GEN-LAST:event_CreateSetsButtonActionPerformed
 
     /**
      * @param args the command line arguments
