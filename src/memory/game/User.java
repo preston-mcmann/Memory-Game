@@ -20,10 +20,36 @@ public class User {
         this.password= password;
         this.Sets=Sets;
     }
-
+    public void removeSets(Sets set){
+        Sets.remove(set);
+    }
+    public Sets addSets(String name, List<Cards> cardList){
+        Sets sets = new Sets(name, cardList);
+        Sets.add(sets);
+        return sets;
+    }
     public static List<Sets> getSets() {
         return Sets;
     }
+    public void print(){
+        for (Sets set:Sets){
+            System.out.println(set.getName());
+        }
+    }
+    public Sets makeSet(String name,List<Cards> Card ){
+        Sets set = new Sets(name, Card);
+        return set;
+    }
+    public static int compare(String name) {
+        int index = -1;
+        for (int i = 0; i < Sets.size(); i++) {
+             if(Sets.get(i).getName().equals(name)){
+                index = i;
+                break;
+             }
+        }       
+        return index;//index of user in list, if -1 then user not in list
+        }
 
     public static void setSets(List<Sets> Sets) {
         User.Sets = Sets;

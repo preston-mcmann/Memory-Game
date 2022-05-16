@@ -31,6 +31,9 @@ public class LoginUsers {
         userList.add(user);
         return user;
     }
+    public User getUser(int x){
+        return userList.get(x);
+    }
     public static int compare(String Username, String Password) {
         int index = -1;
         for (int i = 0; i < userList.size(); i++) {
@@ -40,4 +43,5 @@ public class LoginUsers {
         }       
         return index;//index of user in list, if -1 then user not in list
         }
+
 }
