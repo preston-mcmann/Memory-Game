@@ -4,11 +4,17 @@
  */
 package memory.game;
 
-/**
- *
- * @author ahuyn9
- */
+
 public class Sets {
-   String title = "";
-   int cardNum = 0;
-}
+    String name;
+    public Sets(String name){
+        this.name=name;
+    }
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    

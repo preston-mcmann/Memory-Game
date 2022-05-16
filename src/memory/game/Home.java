@@ -14,8 +14,20 @@ public class Home extends javax.swing.JFrame {
     /**
      * Creates new form Home cd
      */
-    public Home() {
+    LoginUsers loginUsers;
+    int currentUser;
+    public Home(LoginUsers loginUsers, int currentUser) {
         initComponents();
+        this.loginUsers=loginUsers;
+        this.currentUser=currentUser;
+        for (Sets Set : loginUsers.getUserList().get(currentUser).getSets()){
+            SetSelectionBox.addItem(Set.getName());
+        }
+        SetSelectionBox.setEnabled(true);
+        CreateSetsButton.setEnabled(true);
+        EditSetsButton.setEnabled(false);
+        FlashCardsButton.setEnabled(false);
+        MatchingGameButton.setEnabled(false);
     }
 
     /**
@@ -30,6 +42,11 @@ public class Home extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
+        SetSelectionBox = new javax.swing.JComboBox<>();
+        CreateSetsButton = new javax.swing.JButton();
+        EditSetsButton = new javax.swing.JButton();
+        FlashCardsButton = new javax.swing.JButton();
+        MatchingGameButton = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -57,15 +74,58 @@ public class Home extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(0, 51, 102));
 
+        SetSelectionBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select" }));
+        SetSelectionBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                SetSelectionBoxItemStateChanged(evt);
+            }
+        });
+
+        CreateSetsButton.setText("Create Sets");
+
+        EditSetsButton.setText("Edit Sets");
+        EditSetsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditSetsButtonActionPerformed(evt);
+            }
+        });
+
+        FlashCardsButton.setText("Flash Cards");
+
+        MatchingGameButton.setText("Matching Game");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(SetSelectionBox, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(EditSetsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(CreateSetsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(MatchingGameButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(FlashCardsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(34, 34, 34))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(FlashCardsButton)
+                        .addGap(17, 17, 17)
+                        .addComponent(CreateSetsButton))
+                    .addComponent(SetSelectionBox, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(EditSetsButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(MatchingGameButton)
+                .addContainerGap(139, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -82,12 +142,44 @@ public class Home extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void SetSelectionBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_SetSelectionBoxItemStateChanged
+        if(!SetSelectionBox.getSelectedItem().equals("Select")){
+            EditSetsButton.setEnabled(true);
+            FlashCardsButton.setEnabled(true);
+            MatchingGameButton.setEnabled(true);
+        }else{
+            EditSetsButton.setEnabled(false);
+            FlashCardsButton.setEnabled(false);
+            MatchingGameButton.setEnabled(false);
+        }
+    }//GEN-LAST:event_SetSelectionBoxItemStateChanged
+
+    private void EditSetsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditSetsButtonActionPerformed
+        int index = -1;
+        for (int i = 0; i < loginUsers.getUserList().get(currentUser).getSets().size(); i++) {
+             if(loginUsers.getUserList().get(currentUser).getSets().get(i).getName().equals(SetSelectionBox.getSelectedItem().toString())){
+                index = i;
+             }
+        }       
+        
+        
+        CreateSets createSetsPage = new CreateSets(this, true,loginUsers,loginUsers.getUserList().get(currentUser).getSets().get(index));
+        createSetsPage.setLocationRelativeTo(this);
+        this.dispose();
+        createSetsPage.setVisible(true);
+    }//GEN-LAST:event_EditSetsButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CreateSetsButton;
+    private javax.swing.JButton EditSetsButton;
+    private javax.swing.JButton FlashCardsButton;
+    private javax.swing.JButton MatchingGameButton;
+    private javax.swing.JComboBox<String> SetSelectionBox;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

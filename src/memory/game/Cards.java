@@ -4,12 +4,27 @@
  */
 package memory.game;
 
-/**
- *
- * @author ahuyn9
- */
+
 public class Cards {
-    String term = "";
-    String defintiion = "";
-    
-}
+    String term;
+    String definition;
+    public Cards(String term, String definition){
+        this.term=term;
+        this.definition=definition;
+    }
+
+    public String getTerm() {
+        return term;
+    }
+
+    public void setTerm(String term) {
+        this.term = term;
+    }
+
+    public String getDefinition() {
+        return definition;
+    }
+
+    public void setDefinition(String definition) {
+        this.definition = definition;
+    }
