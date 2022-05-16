@@ -28,4 +28,3 @@ public class Cards {
     public void setDefinition(String definition) {
         this.definition = definition;
     }
-}
