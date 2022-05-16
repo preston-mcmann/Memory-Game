@@ -4,7 +4,10 @@
  */
 package memory.game;
 
-
+/**
+ *
+ * @author mcman
+ */
 public class Cards {
     String term;
     String definition;
@@ -28,3 +31,4 @@ public class Cards {
     public void setDefinition(String definition) {
         this.definition = definition;
     }
+}
