@@ -17,23 +17,14 @@ public class CreateSets extends javax.swing.JDialog {
     /**
      * Creates new form CreateSets
      */
-    LoginUsers loginUsers;
     Sets set;
-    int currentUser;
+    User currentUser;
+    ArrayList<Cards> cardList = new ArrayList<>();
 
-    public CreateSets(java.awt.Frame parent, boolean modal, LoginUsers loginUsers, Sets set, int currentUser) {
+    public CreateSets(java.awt.Frame parent, boolean modal, User currentUser) {
         super(parent, modal);
         initComponents();
-        this.loginUsers = loginUsers;
-        this.set = set;
         this.currentUser = currentUser;
-        TitleField.setText(set.getName());
-        
-        DefaultTableModel model = (DefaultTableModel) CardTable.getModel();
-        for (Cards card : set.getCards()) {
-            model.addRow(new Object[]{card.getTerm(), card.getDefinition()});
-        }
-
     }
 
     /**
@@ -216,7 +207,7 @@ public class CreateSets extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
-        Home HomeScreen = new Home(loginUsers, currentUser);
+        Home HomeScreen = new Home(currentUser);
         HomeScreen.setLocationRelativeTo(this);
         this.dispose();
         HomeScreen.setVisible(true);
@@ -233,19 +224,23 @@ public class CreateSets extends javax.swing.JDialog {
     private void AddCardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddCardButtonActionPerformed
         DefaultTableModel model = (DefaultTableModel) CardTable.getModel();
         model.addRow(new Object[]{TermField.getText(), DefinitionField.getText()});
+        Cards card = new Cards(TermField.getText(), DefinitionField.getText());
+        cardList.add(card);
         TermField.setText("");
         DefinitionField.setText("");
     }//GEN-LAST:event_AddCardButtonActionPerformed
 
     private void CreateSetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateSetButtonActionPerformed
-        ArrayList<Cards> cardList = new ArrayList<>();
-        for (int i = 0; i < CardTable.getRowCount(); i++) {
-            Cards card = new Cards(CardTable.getModel().getValueAt(i, 0).toString(), CardTable.getModel().getValueAt(i, 1).toString());
-            cardList.add(card);
+        currentUser.addSets(TitleField.getText(), cardList);
+        for (Sets sets : currentUser.getSets()) {
+            System.out.println(sets.getName());
+            for (Cards card : sets.getCards()) {
+                System.out.println(card.getTerm() + " " + card.getDefinition());
+            }
+            System.out.println("------------------------");
         }
-        
-        loginUsers.getUser(currentUser).addSets(TitleField.getText(), cardList);
-        Home HomeScreen = new Home(loginUsers, currentUser);
+
+        Home HomeScreen = new Home(currentUser);
         HomeScreen.setLocationRelativeTo(this);
         this.dispose();
         HomeScreen.setVisible(true);

@@ -17,25 +17,14 @@ public class Home extends javax.swing.JFrame {
     /**
      * Creates new form Home cd
      */
-    LoginUsers loginUsers;
-    int currentUser;
-    public Home(LoginUsers loginUsers, int currentUser) {
+    User currentUser;
+    public Home(User CurrentUser) {
         initComponents();
-        this.loginUsers=loginUsers;
-        this.currentUser=currentUser;
-        for(int i=0;i<loginUsers.getUser(currentUser).getSets().size();i++){
-            for(int x=1;i<loginUsers.getUser(currentUser).getSets().size()-1;i++){
-                if(loginUsers.getUser(currentUser).getSets().get(i).getName().equals(loginUsers.getUser(currentUser).getSets().get(x).getName())){
-                    loginUsers.getUser(currentUser).removeSets(loginUsers.getUser(currentUser).getSets().get(i));
-                }
-            }
-        }
+        this.currentUser=CurrentUser;
+
  
-        for (Sets Set : loginUsers.getUser(currentUser).getSets()){
+        for (Sets Set : currentUser.getSets()){
             SetSelectionBox.addItem(Set.getName());
-            for(Cards card: Set.getCards()){
-                System.out.println(card.getTerm());
-            }
         }
         SetSelectionBox.setEnabled(true);
         CreateSetsButton.setEnabled(true);
@@ -177,26 +166,26 @@ public class Home extends javax.swing.JFrame {
 
     private void EditSetsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditSetsButtonActionPerformed
         int index = -1;
-        for (int i = 0; i < loginUsers.getUser(currentUser).getSets().size(); i++) {
-             if(loginUsers.getUser(currentUser).getSets().get(i).getName().equals(SetSelectionBox.getSelectedItem().toString())){
+        for (int i = 0; i < currentUser.getSets().size(); i++) {
+             if(currentUser.getSets().get(i).getName().equals(SetSelectionBox.getSelectedItem().toString())){
                 index = i;
-                loginUsers.getUser(currentUser).getSets().get(i).print();
+                currentUser.getSets().get(i).print();
              }
         }       
         
         
-        CreateSets createSetsPage = new CreateSets(this, true,loginUsers,loginUsers.getUser(currentUser).getSets().get(index),currentUser);
-        createSetsPage.setLocationRelativeTo(this);
+        EditSets editSetsPage = new EditSets(this, true,index,currentUser);
+        editSetsPage.setLocationRelativeTo(this);
         this.dispose();
-        createSetsPage.setVisible(true);
+        editSetsPage.setVisible(true);
     }//GEN-LAST:event_EditSetsButtonActionPerformed
 
     private void CreateSetsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateSetsButtonActionPerformed
         ArrayList<Cards> cardList1 = new ArrayList<>();
         Cards card = new Cards("","");
         cardList1.add(card);
-        loginUsers.getUser(currentUser).makeSet("",cardList1);
-        CreateSets createSetsPage = new CreateSets(this, true,loginUsers,loginUsers.getUser(currentUser).makeSet("",cardList1),currentUser);
+        currentUser.makeSet("",cardList1);
+        CreateSets createSetsPage = new CreateSets(this, true,currentUser);
         createSetsPage.setLocationRelativeTo(this);
         this.dispose();
         createSetsPage.setVisible(true);
