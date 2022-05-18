@@ -11,7 +11,9 @@ import java.util.List;
  * @author mcman
  */
 public class Sets {
+
     String name;
+
     private List<Cards> cards;
     public Sets(String name, List<Cards> cards){
         this.name=name;
@@ -19,24 +21,30 @@ public class Sets {
     }
     
     public List<Cards> getCards() {
+
         return cards;
     }
-    public void addCards(List<Cards> cards){
+
+    public void addCards(List<Cards> cards) {
         cards.addAll(cards);
     }
-    public Cards makeCards(String term, String def){
-        Cards Card = new Cards(term,def);
+
+    public Cards makeCards(String term, String def) {
+        Cards Card = new Cards(term, def);
         return Card;
     }
-    public void print(){
-        for (Cards card:cards){
+
+    public void print() {
+        for (Cards card : cards) {
             System.out.println(card.getTerm());
             System.out.println(card.getDefinition());
         }
     }
+
     public void setCards(List<Cards> cards) {
         cards = cards;
-    }
+
+
     public String getName() {
         return name;
     }
@@ -44,5 +52,4 @@ public class Sets {
     public void setName(String name) {
         this.name = name;
     }
-    
 }

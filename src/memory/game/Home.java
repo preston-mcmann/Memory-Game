@@ -17,6 +17,7 @@ public class Home extends javax.swing.JFrame {
     /**
      * Creates new form Home cd
      */
+
     User currentUser;
     public Home(User CurrentUser) {
         initComponents();
@@ -25,6 +26,7 @@ public class Home extends javax.swing.JFrame {
  
         for (Sets Set : currentUser.getSets()){
             SetSelectionBox.addItem(Set.getName());
+
         }
         SetSelectionBox.setEnabled(true);
         CreateSetsButton.setEnabled(true);
@@ -100,6 +102,13 @@ public class Home extends javax.swing.JFrame {
 
         FlashCardsButton.setText("Flash Cards");
 
+        FlashCardsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FlashCardsButtonActionPerformed(evt);
+            }
+        });
+
+
         MatchingGameButton.setText("Matching Game");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -151,6 +160,7 @@ public class Home extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SetSelectionBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_SetSelectionBoxItemStateChanged
+
         if(!SetSelectionBox.getSelectedItem().equals("Select")){
             EditSetsButton.setEnabled(true);
             FlashCardsButton.setEnabled(true);
@@ -161,11 +171,13 @@ public class Home extends javax.swing.JFrame {
             FlashCardsButton.setEnabled(false);
             MatchingGameButton.setEnabled(false);
             
+
         }
     }//GEN-LAST:event_SetSelectionBoxItemStateChanged
 
     private void EditSetsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditSetsButtonActionPerformed
         int index = -1;
+
         for (int i = 0; i < currentUser.getSets().size(); i++) {
              if(currentUser.getSets().get(i).getName().equals(SetSelectionBox.getSelectedItem().toString())){
                 index = i;
@@ -178,18 +190,36 @@ public class Home extends javax.swing.JFrame {
         editSetsPage.setLocationRelativeTo(this);
         this.dispose();
         editSetsPage.setVisible(true);
+
     }//GEN-LAST:event_EditSetsButtonActionPerformed
 
     private void CreateSetsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateSetsButtonActionPerformed
         ArrayList<Cards> cardList1 = new ArrayList<>();
+
         Cards card = new Cards("","");
         cardList1.add(card);
         currentUser.makeSet("",cardList1);
         CreateSets createSetsPage = new CreateSets(this, true,currentUser);
+
+
         createSetsPage.setLocationRelativeTo(this);
         this.dispose();
         createSetsPage.setVisible(true);
     }//GEN-LAST:event_CreateSetsButtonActionPerformed
+
+
+    private void FlashCardsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FlashCardsButtonActionPerformed
+        // TODO add your handling code here:
+        for (int i = 0; i < loginUsers.getUser(currentUser).getSets().size(); i++) {
+            if (loginUsers.getUser(currentUser).getSets().get(i).getName().equals(SetSelectionBox.getSelectedItem().toString())) {
+
+                loginUsers.getUser(currentUser).getSets().get(i).print();
+                Flashcards flashcards = new Flashcards(loginUsers.getUser(currentUser).getSets().get(i).getCards(), loginUsers, currentUser);
+                flashcards.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_FlashCardsButtonActionPerformed
+
 
     /**
      * @param args the command line arguments
