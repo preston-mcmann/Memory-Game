@@ -41,9 +41,9 @@ public class Sets {
         }
     }
 
-    public void setCards(List<Cards> cards) {
-        cards = cards;
-
+    public void setCards(List<Cards> Cards) {
+        cards = Cards;
+    }
 
     public String getName() {
         return name;

@@ -210,11 +210,11 @@ public class Home extends javax.swing.JFrame {
 
     private void FlashCardsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FlashCardsButtonActionPerformed
         // TODO add your handling code here:
-        for (int i = 0; i < loginUsers.getUser(currentUser).getSets().size(); i++) {
-            if (loginUsers.getUser(currentUser).getSets().get(i).getName().equals(SetSelectionBox.getSelectedItem().toString())) {
+        for (int i = 0; i < currentUser.getSets().size(); i++) {
+            if (currentUser.getSets().get(i).getName().equals(SetSelectionBox.getSelectedItem().toString())) {
 
-                loginUsers.getUser(currentUser).getSets().get(i).print();
-                Flashcards flashcards = new Flashcards(loginUsers.getUser(currentUser).getSets().get(i).getCards(), loginUsers, currentUser);
+                currentUser.getSets().get(i).print();
+                Flashcards flashcards = new Flashcards(currentUser.getSets().get(i).getCards(), currentUser);
                 flashcards.setVisible(true);
             }
         }

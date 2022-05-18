@@ -15,15 +15,14 @@ public class Flashcards extends javax.swing.JFrame {
     /**
      * Creates new form Flashcards
      */
-    LoginUsers loginUsers;
-    int currentUser;
+
+    User currentUser;
     static int index = 0;
     static boolean showTerm = true;
     static List<Cards> myCards;
 
-    public Flashcards(List<Cards> cards,LoginUsers loginUsers,int currentUser) {
+    public Flashcards(List<Cards> cards,User currentUser) {
         initComponents();
-        this.loginUsers = loginUsers;
         this.currentUser = currentUser;
         myCards = cards;
         CardButton.setText(myCards.get(index).getTerm());
@@ -174,7 +173,7 @@ public class Flashcards extends javax.swing.JFrame {
 
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
         // TODO add your handling code here:
-        Home HomeScreen = new Home(loginUsers, currentUser);
+        Home HomeScreen = new Home(currentUser);
         HomeScreen.setLocationRelativeTo(this);
         this.dispose();
         HomeScreen.setVisible(true);
