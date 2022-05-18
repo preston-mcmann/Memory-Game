@@ -12,18 +12,18 @@ import java.util.List;
  * @author mcman
  */
 public class LoginUsers {
-    private static List<User> userList;
+    private List<User> userList;
     
     public LoginUsers(List<User> userList){
         this.userList=userList;
     }
 
-    public static List<User> getUserList() {
+    public List<User> getUserList() {
         return userList;
     }
 
-    public static void setUserList(List<User> userList) {
-        LoginUsers.userList = userList;
+    public void setUserList(List<User> UserList) {
+        userList = UserList;
     }
     
     public User addUser(String name, String password){
@@ -34,7 +34,7 @@ public class LoginUsers {
     public User getUser(int x){
         return userList.get(x);
     }
-    public static int compare(String Username, String Password) {
+    public int compare(String Username, String Password) {
         int index = -1;
         for (int i = 0; i < userList.size(); i++) {
              if(userList.get(i).getName().equals(Username) && userList.get(i).getPassword().equals(Password)){

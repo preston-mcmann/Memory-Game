@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 public class User {
-    private static List<Sets> Sets;
+    private  List<Sets> Sets;
     String name;
     String password;
     public User(String name, String password, List<Sets> Sets){
@@ -28,7 +28,7 @@ public class User {
         Sets.add(sets);
         return sets;
     }
-    public static List<Sets> getSets() {
+    public List<Sets> getSets() {
         return Sets;
     }
     public void print(){
@@ -40,7 +40,7 @@ public class User {
         Sets set = new Sets(name, Card);
         return set;
     }
-    public static int compare(String name) {
+    public int compare(String name) {
         int index = -1;
         for (int i = 0; i < Sets.size(); i++) {
              if(Sets.get(i).getName().equals(name)){
@@ -51,8 +51,8 @@ public class User {
         return index;//index of user in list, if -1 then user not in list
         }
 
-    public static void setSets(List<Sets> Sets) {
-        User.Sets = Sets;
+    public  void setSets(List<Sets> sets) {
+        Sets = sets;
     }
     
     public String getName() {

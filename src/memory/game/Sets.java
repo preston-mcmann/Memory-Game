@@ -13,14 +13,15 @@ import java.util.List;
 public class Sets {
 
     String name;
-    private static List<Cards> cards;
 
-    public Sets(String name, List<Cards> cards) {
-        this.name = name;
-        this.cards = cards;
+    private List<Cards> cards;
+    public Sets(String name, List<Cards> cards){
+        this.name=name;
+        this.cards=cards;
     }
+    
+    public List<Cards> getCards() {
 
-    public static List<Cards> getCards() {
         return cards;
     }
 
@@ -40,9 +41,9 @@ public class Sets {
         }
     }
 
-    public static void setCards(List<Cards> cards) {
-        Sets.cards = cards;
-    }
+    public void setCards(List<Cards> cards) {
+        cards = cards;
+
 
     public String getName() {
         return name;
