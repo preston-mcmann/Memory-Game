@@ -7,7 +7,6 @@ import java.util.List;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author ahuyn9
@@ -19,21 +18,22 @@ public class Home extends javax.swing.JFrame {
      */
     LoginUsers loginUsers;
     int currentUser;
+
     public Home(LoginUsers loginUsers, int currentUser) {
         initComponents();
-        this.loginUsers=loginUsers;
-        this.currentUser=currentUser;
-        for(int i=0;i<loginUsers.getUser(currentUser).getSets().size();i++){
-            for(int x=1;i<loginUsers.getUser(currentUser).getSets().size()-1;i++){
-                if(loginUsers.getUser(currentUser).getSets().get(i).getName().equals(loginUsers.getUser(currentUser).getSets().get(x).getName())){
+        this.loginUsers = loginUsers;
+        this.currentUser = currentUser;
+        for (int i = 0; i < loginUsers.getUser(currentUser).getSets().size(); i++) {
+            for (int x = 1; i < loginUsers.getUser(currentUser).getSets().size() - 1; i++) {
+                if (loginUsers.getUser(currentUser).getSets().get(i).getName().equals(loginUsers.getUser(currentUser).getSets().get(x).getName())) {
                     loginUsers.getUser(currentUser).removeSets(loginUsers.getUser(currentUser).getSets().get(i));
                 }
             }
         }
- 
-        for (Sets Set : loginUsers.getUser(currentUser).getSets()){
+
+        for (Sets Set : loginUsers.getUser(currentUser).getSets()) {
             SetSelectionBox.addItem(Set.getName());
-            for(Cards card: Set.getCards()){
+            for (Cards card : Set.getCards()) {
                 System.out.println(card.getTerm());
             }
         }
@@ -110,6 +110,11 @@ public class Home extends javax.swing.JFrame {
         });
 
         FlashCardsButton.setText("Flash Cards");
+        FlashCardsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FlashCardsButtonActionPerformed(evt);
+            }
+        });
 
         MatchingGameButton.setText("Matching Game");
 
@@ -162,30 +167,29 @@ public class Home extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SetSelectionBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_SetSelectionBoxItemStateChanged
-        if(!SetSelectionBox.getSelectedItem().equals("Select")){
+        if (!SetSelectionBox.getSelectedItem().equals("Select")) {
             EditSetsButton.setEnabled(true);
             FlashCardsButton.setEnabled(true);
             MatchingGameButton.setEnabled(true);
-            
-        }else{
+
+        } else {
             EditSetsButton.setEnabled(false);
             FlashCardsButton.setEnabled(false);
             MatchingGameButton.setEnabled(false);
-            
+
         }
     }//GEN-LAST:event_SetSelectionBoxItemStateChanged
 
     private void EditSetsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditSetsButtonActionPerformed
         int index = -1;
         for (int i = 0; i < loginUsers.getUser(currentUser).getSets().size(); i++) {
-             if(loginUsers.getUser(currentUser).getSets().get(i).getName().equals(SetSelectionBox.getSelectedItem().toString())){
+            if (loginUsers.getUser(currentUser).getSets().get(i).getName().equals(SetSelectionBox.getSelectedItem().toString())) {
                 index = i;
                 loginUsers.getUser(currentUser).getSets().get(i).print();
-             }
-        }       
-        
-        
-        CreateSets createSetsPage = new CreateSets(this, true,loginUsers,loginUsers.getUser(currentUser).getSets().get(index),currentUser);
+            }
+        }
+
+        CreateSets createSetsPage = new CreateSets(this, true, loginUsers, loginUsers.getUser(currentUser).getSets().get(index), currentUser);
         createSetsPage.setLocationRelativeTo(this);
         this.dispose();
         createSetsPage.setVisible(true);
@@ -193,19 +197,30 @@ public class Home extends javax.swing.JFrame {
 
     private void CreateSetsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateSetsButtonActionPerformed
         ArrayList<Cards> cardList1 = new ArrayList<>();
-        Cards card = new Cards("","");
+        Cards card = new Cards("", "");
         cardList1.add(card);
-        loginUsers.getUser(currentUser).makeSet("",cardList1);
-        CreateSets createSetsPage = new CreateSets(this, true,loginUsers,loginUsers.getUser(currentUser).makeSet("",cardList1),currentUser);
+        loginUsers.getUser(currentUser).makeSet("", cardList1);
+        CreateSets createSetsPage = new CreateSets(this, true, loginUsers, loginUsers.getUser(currentUser).makeSet("", cardList1), currentUser);
         createSetsPage.setLocationRelativeTo(this);
         this.dispose();
         createSetsPage.setVisible(true);
     }//GEN-LAST:event_CreateSetsButtonActionPerformed
 
+    private void FlashCardsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FlashCardsButtonActionPerformed
+        // TODO add your handling code here:
+        for (int i = 0; i < loginUsers.getUser(currentUser).getSets().size(); i++) {
+            if (loginUsers.getUser(currentUser).getSets().get(i).getName().equals(SetSelectionBox.getSelectedItem().toString())) {
+
+                loginUsers.getUser(currentUser).getSets().get(i).print();
+                Flashcards flashcards = new Flashcards(loginUsers.getUser(currentUser).getSets().get(i).getCards(), loginUsers, currentUser);
+                flashcards.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_FlashCardsButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CreateSetsButton;
