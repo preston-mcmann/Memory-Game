@@ -112,7 +112,7 @@ public class Flashcards extends javax.swing.JFrame {
                                 .addGap(72, 72, 72)
                                 .addComponent(CardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(159, 159, 159)
+                                .addGap(162, 162, 162)
                                 .addComponent(ProgressField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 80, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -126,9 +126,9 @@ public class Flashcards extends javax.swing.JFrame {
                     .addComponent(BackButton))
                 .addGap(31, 31, 31)
                 .addComponent(CardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(28, 28, 28)
                 .addComponent(ProgressField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(GoRightButton)
                     .addComponent(GoLeftButton))
@@ -143,9 +143,7 @@ public class Flashcards extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -182,11 +180,15 @@ public class Flashcards extends javax.swing.JFrame {
 
     private void GoRightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GoRightButtonActionPerformed
         // TODO add your handling code here:
-         if(index!=myCards.size()){
+        if(index!=0){
+             index--;
+        }
+        if(index!=myCards.size()){
             index++;
         }
         CardButton.setText(myCards.get(index).getTerm());
         showTerm = true;
+        
     }//GEN-LAST:event_GoRightButtonActionPerformed
 
     /**
