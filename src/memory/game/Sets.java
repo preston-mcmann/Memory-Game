@@ -43,7 +43,7 @@ public class Sets {
 
     public void setCards(List<Cards> cards) {
         cards = cards;
-
+    }
 
     public String getName() {
         return name;
