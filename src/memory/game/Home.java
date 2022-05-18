@@ -215,9 +215,12 @@ public class Home extends javax.swing.JFrame {
 
                 currentUser.getSets().get(i).print();
                 Flashcards flashcards = new Flashcards(currentUser.getSets().get(i).getCards(), currentUser);
+
                 flashcards.setLocationRelativeTo(this);
+
                 this.dispose();
                 flashcards.setVisible(true);
+
             }
         }
     }//GEN-LAST:event_FlashCardsButtonActionPerformed
