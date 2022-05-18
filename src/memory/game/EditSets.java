@@ -28,6 +28,7 @@ public class EditSets extends javax.swing.JDialog {
         this.currentUser = CurrentUser;
         this.set=currentUser.getSets().get(index);
         TitleField.setText(set.getName());
+        
         DefaultTableModel model = (DefaultTableModel) CardTable.getModel();
         for (Cards card : set.getCards()) {
             cardList.add(card);

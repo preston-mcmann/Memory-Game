@@ -12,13 +12,13 @@ import java.util.List;
  */
 public class Sets {
     String name;
-    private static List<Cards> cards;
+    private List<Cards> cards;
     public Sets(String name, List<Cards> cards){
         this.name=name;
         this.cards=cards;
     }
     
-    public static List<Cards> getCards() {
+    public List<Cards> getCards() {
         return cards;
     }
     public void addCards(List<Cards> cards){
@@ -34,8 +34,8 @@ public class Sets {
             System.out.println(card.getDefinition());
         }
     }
-    public static void setCards(List<Cards> cards) {
-        Sets.cards = cards;
+    public void setCards(List<Cards> cards) {
+        cards = cards;
     }
     public String getName() {
         return name;
