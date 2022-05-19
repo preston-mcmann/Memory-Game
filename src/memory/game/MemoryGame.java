@@ -18,8 +18,8 @@ public class MemoryGame {
     public static void main(String[] args) {
         ArrayList<Cards> cardList1 = new ArrayList<>();
         ArrayList<Cards> cardList2 = new ArrayList<>();
-        Cards card1 = new Cards("Apple","Red");
-        Cards card2 = new Cards("12","dfed");
+        Cards card1 = new Cards("Cell","The smallest unit that can preform a life process");
+        Cards card2 = new Cards("Element","Pure substance that consists entirely of one type of atom");
         cardList1.add(card1);
         cardList1.add(card2);
         ArrayList<Sets> setList1 = new ArrayList<>();

@@ -5,6 +5,7 @@
  */
 package memory.game;
 
+import java.util.Hashtable;
 import java.util.List;
 
 /**
@@ -24,9 +25,10 @@ public class Flashcards extends javax.swing.JFrame {
 
     public Flashcards(List<Cards> cards,User  currentUser) {
         initComponents();
-        this.loginUsers = loginUsers;
         this.currentUser = currentUser;
         myCards = cards;
+
+        
         CardButton.setText(myCards.get(index).getTerm());
     }
 
@@ -72,6 +74,11 @@ public class Flashcards extends javax.swing.JFrame {
         GoRightButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GoRightButtonActionPerformed(evt);
+            }
+        });
+        GoRightButton.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                GoRightButtonKeyPressed(evt);
             }
         });
 
@@ -217,6 +224,10 @@ public class Flashcards extends javax.swing.JFrame {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_ViewStudyLaterButtonActionPerformed
+
+    private void GoRightButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_GoRightButtonKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GoRightButtonKeyPressed
 
     /**
      * @param args the command line arguments
