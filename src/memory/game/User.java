@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 public class User {
-    private  List<Sets> Sets;
+    private List<Sets> Sets;
     String name;
     String password;
     boolean study;
@@ -23,6 +23,9 @@ public class User {
     }
     public void removeSets(Sets set){
         Sets.remove(set);
+    }
+    public void removeSetsIndex(int index){
+        Sets.remove(index);
     }
     public Sets addSets(String name, List<Cards> cardList){
         Sets sets = new Sets(name, cardList);

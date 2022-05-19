@@ -17,7 +17,7 @@ public class CreateSets extends javax.swing.JDialog {
     /**
      * Creates new form CreateSets
      */
-    Sets set;
+
     User currentUser;
     ArrayList<Cards> cardList = new ArrayList<>();
 
@@ -234,6 +234,21 @@ public class CreateSets extends javax.swing.JDialog {
     }//GEN-LAST:event_AddCardButtonActionPerformed
 
     private void CreateSetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateSetButtonActionPerformed
+
+        int x =-1;
+        for (Sets sets : currentUser.getSets()) {
+            
+            if (sets.getName().equals(TitleField.getText())) {
+                x=currentUser.compare(TitleField.getText());
+                for (Cards card : sets.getCards()) {
+                    cardList.add(card);
+                }  
+ 
+            }
+        }
+        if(x>-1){
+            currentUser.removeSetsIndex(x);
+        }
         currentUser.addSets(TitleField.getText(), cardList);
         for (Sets sets : currentUser.getSets()) {
             System.out.println(sets.getName());
