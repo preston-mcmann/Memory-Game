@@ -15,6 +15,7 @@ public class User {
     private List<Sets> Sets;
     String name;
     String password;
+    boolean study;
     public User(String name, String password, List<Sets> Sets){
         this.name=name;
         this.password= password;

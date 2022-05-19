@@ -21,6 +21,8 @@ public class CreateSets extends javax.swing.JDialog {
     User currentUser;
     ArrayList<Cards> cardList = new ArrayList<>();
 
+    
+
     public CreateSets(java.awt.Frame parent, boolean modal, User currentUser) {
         super(parent, modal);
         initComponents();
@@ -225,6 +227,7 @@ public class CreateSets extends javax.swing.JDialog {
         DefaultTableModel model = (DefaultTableModel) CardTable.getModel();
         model.addRow(new Object[]{TermField.getText(), DefinitionField.getText()});
         Cards card = new Cards(TermField.getText(), DefinitionField.getText());
+        card.study = false;
         cardList.add(card);
         TermField.setText("");
         DefinitionField.setText("");
