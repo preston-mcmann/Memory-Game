@@ -11,6 +11,8 @@ package memory.game;
 public class Cards {
     String term;
     String definition;
+    boolean study;
+    
     public Cards(String term, String definition){
         this.term=term;
         this.definition=definition;

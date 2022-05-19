@@ -20,6 +20,7 @@ public class Flashcards extends javax.swing.JFrame {
     static int index = 0;
     static boolean showTerm = true;
     static List<Cards> myCards;
+    boolean study = false;
 
     public Flashcards(List<Cards> cards,User  currentUser) {
         initComponents();
@@ -91,6 +92,11 @@ public class Flashcards extends javax.swing.JFrame {
         ProgressField.setText("Progress");
 
         AddTermToStudyLaterButton.setText("Add Term to Study Later");
+        AddTermToStudyLaterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddTermToStudyLaterButtonActionPerformed(evt);
+            }
+        });
 
         ViewStudyLaterButton.setText("View Study Later");
         ViewStudyLaterButton.addActionListener(new java.awt.event.ActionListener() {
@@ -214,8 +220,17 @@ public class Flashcards extends javax.swing.JFrame {
 
     private void ViewStudyLaterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewStudyLaterButtonActionPerformed
         // TODO add your handling code here:
+        StudyLater studyLaterPage = new StudyLater(myCards, currentUser);
+        studyLaterPage.setLocationRelativeTo(this);
+        this.dispose();
+        studyLaterPage.setVisible(true);
         
     }//GEN-LAST:event_ViewStudyLaterButtonActionPerformed
+
+    private void AddTermToStudyLaterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddTermToStudyLaterButtonActionPerformed
+        // TODO add your handling code here:
+        myCards.get(index).study = true;
+    }//GEN-LAST:event_AddTermToStudyLaterButtonActionPerformed
 
     /**
      * @param args the command line arguments
