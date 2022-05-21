@@ -16,20 +16,21 @@ public class EditSets extends javax.swing.JDialog {
     /**
      * Creates new form EditSets
      */
-
     int index;
     User currentUser;
     Sets set;
     ArrayList<Cards> cardList = new ArrayList<>();
+    DefaultTableModel model;
+
     public EditSets(java.awt.Frame parent, boolean modal, int index, User CurrentUser) {
         super(parent, modal);
         initComponents();
         this.index = index;
         this.currentUser = CurrentUser;
-        this.set=currentUser.getSets().get(index);
+        this.set = currentUser.getSets().get(index);
         TitleField.setText(set.getName());
-        
-        DefaultTableModel model = (DefaultTableModel) CardTable.getModel();
+
+        model = (DefaultTableModel) CardTable.getModel();
         for (Cards card : set.getCards()) {
             cardList.add(card);
         }
@@ -60,6 +61,7 @@ public class EditSets extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        RemoveCardButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -84,6 +86,8 @@ public class EditSets extends javax.swing.JDialog {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Edit Set");
 
+        TitleField.setEditable(false);
+
         CardTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -98,6 +102,12 @@ public class EditSets extends javax.swing.JDialog {
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+        });
+        CardTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        CardTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CardTableMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(CardTable);
@@ -132,6 +142,13 @@ public class EditSets extends javax.swing.JDialog {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Set Definition:");
 
+        RemoveCardButton.setText("Remove Card");
+        RemoveCardButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RemoveCardButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -159,7 +176,9 @@ public class EditSets extends javax.swing.JDialog {
                                 .addGap(18, 18, 18))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addGap(41, 41, 41)
-                                .addComponent(AddCardButton)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(RemoveCardButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(AddCardButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -193,7 +212,9 @@ public class EditSets extends javax.swing.JDialog {
                             .addComponent(DefinitionField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
                         .addGap(18, 18, 18)
-                        .addComponent(AddCardButton)))
+                        .addComponent(AddCardButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(RemoveCardButton)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(CreateSetButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -215,15 +236,20 @@ public class EditSets extends javax.swing.JDialog {
 
     private void CreateSetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateSetButtonActionPerformed
         currentUser.removeSets(set);
+        cardList.clear();
+        for (int i = 0; i < CardTable.getRowCount(); i++) {
+            Cards card = new Cards(model.getValueAt(i, 0).toString(), model.getValueAt(i, 1).toString());
+            cardList.add(card);
+        }
         currentUser.addSets(TitleField.getText(), cardList);
         Home HomeScreen = new Home(currentUser);
         HomeScreen.setLocationRelativeTo(this);
         this.dispose();
         HomeScreen.setVisible(true);
-        for(Sets sets:currentUser.getSets()){
+        for (Sets sets : currentUser.getSets()) {
             System.out.println(sets.getName());
-            for(Cards card :sets.getCards()){
-                System.out.println(card.getTerm()+" "+card.getDefinition());
+            for (Cards card : sets.getCards()) {
+                System.out.println(card.getTerm() + " " + card.getDefinition());
             }
             System.out.println("------------------------");
         }
@@ -245,18 +271,26 @@ public class EditSets extends javax.swing.JDialog {
     }//GEN-LAST:event_DefinitionFieldActionPerformed
 
     private void AddCardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddCardButtonActionPerformed
-        DefaultTableModel model = (DefaultTableModel) CardTable.getModel();
+
         model.addRow(new Object[]{TermField.getText(), DefinitionField.getText()});
-        Cards card = new Cards(TermField.getText(),DefinitionField.getText());
-        cardList.add(card);
+        Cards card = new Cards(TermField.getText(), DefinitionField.getText());
+
         TermField.setText("");
         DefinitionField.setText("");
     }//GEN-LAST:event_AddCardButtonActionPerformed
 
+    private void CardTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CardTableMouseClicked
+
+    }//GEN-LAST:event_CardTableMouseClicked
+
+    private void RemoveCardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveCardButtonActionPerformed
+        int i = CardTable.getSelectedRow();
+        model.removeRow(i);
+    }//GEN-LAST:event_RemoveCardButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddCardButton;
@@ -264,6 +298,7 @@ public class EditSets extends javax.swing.JDialog {
     private javax.swing.JTable CardTable;
     private javax.swing.JButton CreateSetButton;
     private javax.swing.JTextField DefinitionField;
+    private javax.swing.JButton RemoveCardButton;
     private javax.swing.JTextField TermField;
     private javax.swing.JTextField TitleField;
     private javax.swing.JLabel jLabel1;

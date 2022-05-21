@@ -40,7 +40,19 @@ public class Sets {
             System.out.println(card.getDefinition());
         }
     }
-
+    public void removeCardsIndex(int index){
+        cards.remove(index);
+    }
+    public int compare(String Term, String Definition) {
+        int index = -1;
+        for (int i = 0; i < cards.size(); i++) {
+             if(cards.get(i).getTerm().equals(Term)&&cards.get(i).getDefinition().equals(Definition)){
+                index = i;
+                break;
+             }
+        }       
+        return index;//index of user in list, if -1 then user not in list
+        }
 
     public void setCards(List<Cards> Cards) {
         cards = Cards;
