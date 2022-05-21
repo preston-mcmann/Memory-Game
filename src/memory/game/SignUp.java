@@ -16,6 +16,8 @@ public class SignUp extends javax.swing.JDialog {
      * Creates new form SignUp
      */
     LoginUsers loginUsers;
+    
+    //Constructor
     public SignUp(java.awt.Frame parent, boolean modal, LoginUsers loginUsers) {
         super(parent, modal);
         initComponents();
@@ -190,25 +192,25 @@ public class SignUp extends javax.swing.JDialog {
 
     private void CreateAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateAccountButtonActionPerformed
         // TODO add your handling code here:
-        String username = UsernameField.getText();
-        String pass = PasswordField.getText();
+        String Username = UsernameField.getText();
+        String Password = PasswordField.getText();
         String ConfirmPassword = ConfirmPasswordField.getText();
 
         StringBuilder warnings = new StringBuilder();
-        if (UsernameField.getText().isEmpty()) {
+        if (Username.isEmpty()) {
             warnings.append("Username must not be empty.\n");
         }
-        if (PasswordField.getText().isEmpty()) {
+        if (Password.isEmpty()) {
             warnings.append("Password must not be empty.\n");
         }
-        if (ConfirmPasswordField.getText().isEmpty() || !ConfirmPasswordField.getText().equals(PasswordField.getText())) {
+        if (ConfirmPassword.isEmpty() || !ConfirmPassword.equals(Password)) {
             warnings.append("Passwords Must Match");
         }
         if (warnings.length() > 0) {
             JOptionPane.showMessageDialog(this, warnings.toString(), "Input Warnings", JOptionPane.WARNING_MESSAGE);
         } else {
             
-            loginUsers.addUser(username, pass);
+            loginUsers.addUser(Username, Password);
  
             Login loginScreen = new Login(loginUsers);
             loginScreen.setLocationRelativeTo(this);

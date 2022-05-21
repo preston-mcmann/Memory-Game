@@ -4,9 +4,7 @@ package memory.game;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-import memory.game.SignUp;
-import memory.game.Home;
-import javax.swing.*;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -20,6 +18,8 @@ public class Login extends javax.swing.JFrame {
      */
     
     LoginUsers loginUsers;
+    
+    //Constructor
     public Login(LoginUsers loginUsers) {
         initComponents();
         this.loginUsers=loginUsers;
@@ -168,26 +168,28 @@ public class Login extends javax.swing.JFrame {
 
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
         // TODO add your handling code here:
-        String username = UsernameField.getText();
-        String pass = PasswordField.getText();
+        String Username = UsernameField.getText();
+        String Password = PasswordField.getText();
 
         StringBuilder warnings = new StringBuilder();
-        if (UsernameField.getText().isEmpty()) {
+        if (Username.isEmpty()) {
             warnings.append("Username must not be empty.\n");
         }
-        if (PasswordField.getText().isEmpty()) {
+        if (Password.isEmpty()) {
             warnings.append("Password must not be empty.\n");
         }
         if (warnings.length() > 0) {
             JOptionPane.showMessageDialog(this, warnings.toString(), "Input Warnings", JOptionPane.WARNING_MESSAGE);
         } else {
-            int currentUser = loginUsers.compare(username, pass);
+            int currentUser = loginUsers.FindIndexofUser(Username, Password);
             boolean signedIn = (currentUser != -1);
             if (signedIn) {
                 Home HomeScreen = new Home(loginUsers.getUser(currentUser));
                 HomeScreen.setLocationRelativeTo(this);
                 this.dispose();
                 HomeScreen.setVisible(true);
+            }else{
+                JOptionPane.showMessageDialog(null, "Password or Username are Incorrect");
             }
         }
     }//GEN-LAST:event_LoginButtonActionPerformed
