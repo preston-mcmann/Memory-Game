@@ -15,7 +15,7 @@ public class EditSets extends javax.swing.JDialog {
     LinkedList<Cards> cardList = new LinkedList<>();
     //global variable for CardTable
     DefaultTableModel model;
-
+    String[][] twoDimentional;
     //Constructor
     public EditSets(java.awt.Frame parent, boolean modal, Sets currentSet, User CurrentUser) {
         super(parent, modal);
@@ -30,11 +30,16 @@ public class EditSets extends javax.swing.JDialog {
 
         //adds all cards from the set to global cardList variable
         cardList = (LinkedList<Cards>) set.getCards();
+        
+        //initialize 2d list
+        twoDimentional = currentSet.getTwoDimentional();
 
+        
         //adds all cards from cardList to Card Table
-        for (Cards card : cardList) {
-            model.addRow(new Object[]{card.getTerm(), card.getDefinition()});
-        }
+        int rowCount = twoDimentional.length;
+        for(int i = 0 ; i < rowCount ; i++){
+                model.addRow(new Object[]{twoDimentional[i][0], twoDimentional[i][1]});
+            }   
     }
 
     @SuppressWarnings("unchecked")
