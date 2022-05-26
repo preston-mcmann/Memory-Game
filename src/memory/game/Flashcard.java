@@ -179,7 +179,7 @@ public class Flashcard extends javax.swing.JFrame {
     }//GEN-LAST:event_AddTermToStudyLaterButtonActionPerformed
 
     private void ViewStudyLaterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewStudyLaterButtonActionPerformed
-         StudyLater studyLaterPage = new StudyLater(myCards, currentUser);
+        StudyLater studyLaterPage = new StudyLater(myCards, currentUser);
         studyLaterPage.setLocationRelativeTo(this);
         this.dispose();
         studyLaterPage.setVisible(true);

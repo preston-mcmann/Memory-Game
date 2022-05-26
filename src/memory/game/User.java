@@ -43,6 +43,17 @@ public class User {
         return sets;
     }
     
+    public Sets addSets(String name, String[][] twoDimentional){
+        LinkedList<Cards> cardList = new LinkedList<>();
+        for(int r = 0; r<twoDimentional.length;r++){
+                Cards card = new Cards(twoDimentional[r][0],twoDimentional[r][1]);
+                cardList.add(card);
+        }
+        Sets sets = new Sets(name, cardList);
+        Sets.add(sets);
+        return sets;
+    }
+                        
     //overrides and adds a set with a name and cardlist
     public Sets addSets(String name, LinkedList<Cards> cardList){
         Sets sets = new Sets(name, cardList);

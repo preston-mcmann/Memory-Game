@@ -21,6 +21,15 @@ public class Sets {
         this.name=name;
         this.cards=cards;
         twoDimentional= new String[cards.size()][2];
+        /*LinkedList<LinkedList<String> > array2d = new LinkedList<LinkedList<String> >();
+        int z = 0;
+        for (Cards card : cards) {
+            array2d.add(new LinkedList<String>());
+            array2d.get(z).add(card.getTerm());
+            array2d.get(z).add(card.getDefinition());
+            z++;
+        }
+        System.out.println(array2d);*/
         //adds card term and def to 2d array
         int x=0;
         int y=0;
