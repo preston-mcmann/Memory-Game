@@ -119,6 +119,10 @@ public class Flashcard extends javax.swing.JFrame {
             }
         });
 
+        ProgressNumber.setBackground(new java.awt.Color(0, 51, 102));
+        ProgressNumber.setForeground(new java.awt.Color(0, 51, 102));
+        ProgressNumber.setBorder(null);
+
         javax.swing.GroupLayout progressBarLayout = new javax.swing.GroupLayout(progressBar);
         progressBar.setLayout(progressBarLayout);
         progressBarLayout.setHorizontalGroup(
@@ -126,36 +130,36 @@ public class Flashcard extends javax.swing.JFrame {
             .addGroup(progressBarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, progressBarLayout.createSequentialGroup()
-                        .addComponent(AddTermToStudyLaterButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
-                        .addComponent(ViewStudyLaterButton))
                     .addGroup(progressBarLayout.createSequentialGroup()
-                        .addComponent(BackButton)
-                        .addGap(79, 79, 79)
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(progressBarLayout.createSequentialGroup()
-                .addGap(125, 125, 125)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, progressBarLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ProgressNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ProgressField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(156, 156, 156))
-            .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(progressBarLayout.createSequentialGroup()
-                    .addGap(63, 63, 63)
-                    .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(CardButton, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
-                        .addGroup(progressBarLayout.createSequentialGroup()
-                            .addComponent(GoLeftButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(130, 130, 130)
-                            .addComponent(GoRightButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap(63, Short.MAX_VALUE)))
+                        .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, progressBarLayout.createSequentialGroup()
+                                .addComponent(AddTermToStudyLaterButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(ViewStudyLaterButton))
+                            .addGroup(progressBarLayout.createSequentialGroup()
+                                .addComponent(BackButton)
+                                .addGap(79, 79, 79)
+                                .addComponent(jLabel1)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, progressBarLayout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, progressBarLayout.createSequentialGroup()
+                                .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(progressBarLayout.createSequentialGroup()
+                                        .addComponent(GoLeftButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(29, 29, 29)
+                                        .addComponent(GoRightButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(CardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(32, 32, 32))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, progressBarLayout.createSequentialGroup()
+                                .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ProgressNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ProgressField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(156, 156, 156))))))
         );
         progressBarLayout.setVerticalGroup(
             progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,26 +168,30 @@ public class Flashcard extends javax.swing.JFrame {
                 .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BackButton)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ProgressField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
-                .addComponent(ProgressNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
+                .addComponent(CardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(progressBarLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(GoLeftButton)
+                            .addComponent(GoRightButton))
+                        .addGap(82, 82, 82))
+                    .addGroup(progressBarLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(progressBarLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ProgressField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(progressBarLayout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addComponent(ProgressNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ViewStudyLaterButton)
                     .addComponent(AddTermToStudyLaterButton))
                 .addGap(8, 8, 8))
-            .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(progressBarLayout.createSequentialGroup()
-                    .addGap(41, 41, 41)
-                    .addComponent(CardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(41, 41, 41)
-                    .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(GoRightButton)
-                        .addComponent(GoLeftButton))
-                    .addContainerGap(82, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -221,13 +229,7 @@ public class Flashcard extends javax.swing.JFrame {
         }
         
         
-        ProgressField.setText("Progress " + (index + 1) + "/" + myCards.size());
-        
-        //method #1 for progress bar
-        ProgressNumber.setText(Integer.toString(index));
-        int value = Integer.parseInt(ProgressNumber.getText());
-        int newValue = value/myCards.size();
-        jProgressBar1.setValue(newValue);
+
     }//GEN-LAST:event_CardButtonActionPerformed
 
     private void GoRightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GoRightButtonActionPerformed
@@ -239,6 +241,14 @@ public class Flashcard extends javax.swing.JFrame {
         }
         CardButton.setText(myCards.get(index).getTerm());
         showTerm = true;
+                ProgressField.setText("Progress " + (index + 1) + "/" + myCards.size());
+       
+        //progress bar
+        ProgressNumber.setText(Integer.toString(index));
+        int value = Integer.parseInt(ProgressNumber.getText());
+        int newValue = (index+1/myCards.size())*100;
+        
+        jProgressBar1.setValue(newValue);
     }//GEN-LAST:event_GoRightButtonActionPerformed
 
     private void GoRightButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_GoRightButtonKeyPressed
@@ -251,6 +261,12 @@ public class Flashcard extends javax.swing.JFrame {
         }
         CardButton.setText(myCards.get(index).getTerm());
         showTerm = true; 
+                ProgressField.setText("Progress " + (index + 1) + "/" + myCards.size());
+       
+        //progress bar
+        ProgressNumber.setText(Integer.toString(index));
+        int value = Integer.parseInt(ProgressNumber.getText());
+        jProgressBar1.setValue(value);
     }//GEN-LAST:event_GoLeftButtonActionPerformed
 
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
