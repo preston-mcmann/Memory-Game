@@ -24,6 +24,7 @@ public class User {
         this.name=name;
         this.password= password;
         this.Sets=Sets;
+        
     }
     //removes set that is passed
     public void removeSets(Sets set){
@@ -37,29 +38,25 @@ public class User {
     
     //adds set with only name
     public Sets addSets(String name){
-        LinkedList<Cards> cardList = new LinkedList<>();
-        Sets sets = new Sets(name, cardList);
+        String[][] cardArray = new String[0][2];
+        Sets sets = new Sets(name, cardArray);
         Sets.add(sets);
         return sets;
     }
     
-    public Sets addSets(String name, String[][] twoDimentional){
-        LinkedList<Cards> cardList = new LinkedList<>();
-        for(int r = 0; r<twoDimentional.length;r++){
-                Cards card = new Cards(twoDimentional[r][0],twoDimentional[r][1]);
+     //overrides and adds a set with a name and cardlist
+    public Sets addSets(String name, String[][] cardArray){
+        /*for(int r = 0; r<cardArray.length;r++){
+                Cards card = new Cards(cardArray[r][0],cardArray[r][1]);
                 cardList.add(card);
-        }
-        Sets sets = new Sets(name, cardList);
+        }*/
+        Sets sets = new Sets(name, cardArray);
         Sets.add(sets);
         return sets;
     }
                         
-    //overrides and adds a set with a name and cardlist
-    public Sets addSets(String name, LinkedList<Cards> cardList){
-        Sets sets = new Sets(name, cardList);
-        Sets.add(sets);
-        return sets;
-    }
+
+
     
     //returns sets list
     public LinkedList<Sets> getSets() {

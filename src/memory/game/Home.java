@@ -193,7 +193,7 @@ public class Home extends javax.swing.JFrame {
             if (currentUser.getSets().get(i).getName().equals(SetSelectionBox.getSelectedItem().toString())) {
 
                 
-                Flashcard flashcards = new Flashcard(currentUser.getSets().get(i).getCards(), currentUser);
+                Flashcard flashcards = new Flashcard(currentUser.getSets().get(i).getCardArray(), currentUser);
 
                 flashcards.setLocationRelativeTo(this);
 

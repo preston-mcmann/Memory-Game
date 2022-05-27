@@ -4,26 +4,23 @@
  */
 package memory.game;
 
-import java.util.LinkedList;
-
-
-/**
- *
- * @author mcman
- */
 public class Flashcard extends javax.swing.JFrame {
 
     User currentUser;
     static int index = 0;
     static boolean showTerm = true;
-    static LinkedList<Cards> myCards;
-    boolean study = false;
+    String[][] CardArray;
+    String[][] StudyLaterArray;
+    int x =0;
     
-    public Flashcard(LinkedList<Cards> cards,User  currentUser) {
+    public Flashcard(String[][] cardArray,User  currentUser) {
+        //constructor
         initComponents();
         this.currentUser = currentUser;
-        myCards = cards;
-        CardButton.setText(myCards.get(index).getTerm());
+        CardArray = cardArray;
+        StudyLaterArray = new String[cardArray.length][2];
+        //sets text on card to first card term
+        CardButton.setText(CardArray[index][0]);
     }
 
     /**
@@ -175,11 +172,13 @@ public class Flashcard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddTermToStudyLaterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddTermToStudyLaterButtonActionPerformed
-        myCards.get(index).study = true;
+        StudyLaterArray[x][0]=CardArray[index][0];
+        StudyLaterArray[x][1]=CardArray[index][1];
+        x++;
     }//GEN-LAST:event_AddTermToStudyLaterButtonActionPerformed
 
     private void ViewStudyLaterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewStudyLaterButtonActionPerformed
-        StudyLater studyLaterPage = new StudyLater(myCards, currentUser);
+        StudyLater studyLaterPage = new StudyLater(StudyLaterArray, currentUser);
         studyLaterPage.setLocationRelativeTo(this);
         this.dispose();
         studyLaterPage.setVisible(true);
@@ -187,13 +186,13 @@ public class Flashcard extends javax.swing.JFrame {
 
     private void CardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CardButtonActionPerformed
         if (showTerm == true) {
-            CardButton.setText(myCards.get(index).getDefinition());
+            CardButton.setText(CardArray[index][1]);
             showTerm = false;
         } else {
-            CardButton.setText(myCards.get(index).getTerm());
+            CardButton.setText(CardArray[index][0]);
             showTerm = true;
         }
-        ProgressField.setText("Progress " + (index + 1) + "/" + myCards.size());
+        ProgressField.setText("Progress " + (index + 1) + "/" + CardArray.length);
 
     }//GEN-LAST:event_CardButtonActionPerformed
 
@@ -201,10 +200,10 @@ public class Flashcard extends javax.swing.JFrame {
         if(index!=0){
              index--;
         }
-        if(index!=myCards.size()){
+        if(index!=CardArray.length){
             index++;
         }
-        CardButton.setText(myCards.get(index).getTerm());
+        CardButton.setText(CardArray[index][0]);
         showTerm = true;
     }//GEN-LAST:event_GoRightButtonActionPerformed
 
@@ -216,7 +215,7 @@ public class Flashcard extends javax.swing.JFrame {
         if(index!=0){
             index--;
         }
-        CardButton.setText(myCards.get(index).getTerm());
+        CardButton.setText(CardArray[index][0]);
         showTerm = true; 
     }//GEN-LAST:event_GoLeftButtonActionPerformed
 

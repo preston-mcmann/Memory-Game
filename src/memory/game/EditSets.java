@@ -14,7 +14,7 @@ public class EditSets extends javax.swing.JDialog {
     Sets set;
     //global variable for CardTable
     DefaultTableModel model;
-    String[][] twoDimentional;
+    String[][] CardArray;
     String[][] UpdatedTwoDimentional;
     //Constructor
     public EditSets(java.awt.Frame parent, boolean modal, Sets currentSet, User CurrentUser) {
@@ -29,13 +29,13 @@ public class EditSets extends javax.swing.JDialog {
         model = (DefaultTableModel) CardTable.getModel();
         
         //initialize 2d list
-        twoDimentional = currentSet.getTwoDimentional();
+        CardArray = currentSet.getCardArray();
 
         
         //adds all cards from cardList to Card Table
-        int rowCount = twoDimentional.length;
+        int rowCount = CardArray.length;
         for(int i = 0 ; i < rowCount ; i++){
-                model.addRow(new Object[]{twoDimentional[i][0], twoDimentional[i][1]});
+                model.addRow(new Object[]{CardArray[i][0], CardArray[i][1]});
             }   
     }
 
@@ -241,14 +241,15 @@ public class EditSets extends javax.swing.JDialog {
             for (Sets sets : currentUser.getSets()) {
                 if (sets.getName().equals(TitleField.getText())) {
                     int x = currentUser.FindIndexofSet(TitleField.getText());
-                    for(int r = 0; r<sets.getTwoDimentional().length;r++){
-                        sets.getTwoDimentional()[r][0]=UpdatedTwoDimentional[r][0];
-                        sets.getTwoDimentional()[r][1]=UpdatedTwoDimentional[r][1];
+                    for(int r = 0; r<sets.getCardArray().length;r++){
+                        sets.getCardArray()[r][0]=UpdatedTwoDimentional[r][0];
+                        sets.getCardArray()[r][1]=UpdatedTwoDimentional[r][1];
                     }
                     //removes odd set to replace with updated set
                     currentUser.removeSets(x);
                 }
-            }            
+            }   
+            
             //for every row in cardtable, a new card is made and added to cardlist
             int x=0;
             int y=0;

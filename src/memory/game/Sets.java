@@ -15,23 +15,16 @@ public class Sets {
 
     String name;
     private LinkedList<Cards> cards;
-    String[][] twoDimentional;
+    String[][] CardArray;
     //Constructor
-    public Sets(String name, LinkedList<Cards> cards){
+    public Sets(String name, String[][] cardArray){
         this.name=name;
         this.cards=cards;
-        twoDimentional= new String[cards.size()][2];
-        /*LinkedList<LinkedList<String> > array2d = new LinkedList<LinkedList<String> >();
-        int z = 0;
-        for (Cards card : cards) {
-            array2d.add(new LinkedList<String>());
-            array2d.get(z).add(card.getTerm());
-            array2d.get(z).add(card.getDefinition());
-            z++;
-        }
-        System.out.println(array2d);*/
+        CardArray=cardArray;
+        //twoDimentional= new String[cards.size()][2];
+
         //adds card term and def to 2d array
-        int x=0;
+        /*int x=0;
         int y=0;
         for (Cards card : cards) {
             twoDimentional[x][y]=(card.getTerm());
@@ -39,11 +32,11 @@ public class Sets {
             twoDimentional[x][y]=(card.getDefinition());
             x++; 
             y=0;
-        }
+        }*/
     }
 
-    public String[][] getTwoDimentional() {
-        return twoDimentional;
+    public String[][] getCardArray() {
+        return CardArray;
     }
     
     //removes cards at index

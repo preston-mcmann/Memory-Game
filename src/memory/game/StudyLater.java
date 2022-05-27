@@ -4,31 +4,27 @@
  */
 package memory.game;
 
-import java.util.List;
+
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author ahuyn9
- */
 public class StudyLater extends javax.swing.JFrame {
     User currentUser;
-    List<Cards> myCards;
+    String[][] StudyLaterArray;
 
-    /**
-     * Creates new form StudyLater
-     */
-     public StudyLater(List<Cards> cards, User currentUser) {
-        initComponents();
-        myCards = cards;
+     public StudyLater(String[][] studyLaterArray, User currentUser) {
+         //constructor
+         initComponents();
         this.currentUser = currentUser;
+        StudyLaterArray=studyLaterArray;
         
+        //declares CardTable as global reference
         DefaultTableModel model = (DefaultTableModel) StudyTable.getModel();
-        for(Cards card : myCards){
-            if(card.study == true){
-                model.addRow(new Object[]{card.getTerm(), card.getDefinition()});
-            }
-        }
+        
+        //adds all cards from cardList to Card Table
+        int rowCount = StudyLaterArray.length;
+        for(int i = 0 ; i < rowCount ; i++){
+                model.addRow(new Object[]{StudyLaterArray[i][0], StudyLaterArray[i][1]});
+            }       
     }
 
     private StudyLater() {
@@ -133,37 +129,7 @@ public class StudyLater extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(StudyLater.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(StudyLater.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(StudyLater.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(StudyLater.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new StudyLater().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton HomeButton;
