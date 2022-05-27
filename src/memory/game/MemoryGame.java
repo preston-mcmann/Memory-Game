@@ -14,16 +14,12 @@ public class MemoryGame {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        LinkedList<Cards> cardList1 = new LinkedList<>();
-        LinkedList<Cards> cardList2 = new LinkedList<>();
-        Cards card1 = new Cards("Cell","The smallest unit that can preform a life process");
-        Cards card2 = new Cards("Element","Pure substance that consists entirely of one type of atom");
-        cardList1.add(card1);
-        cardList1.add(card2);
+        String[][]array2d= {{"Cell","The smallest unit that can preform a life process"},{"Element","Pure substance that consists entirely of one type of atom"}};
+        
         LinkedList<Sets> setList1 = new LinkedList<>();
         LinkedList<Sets> setList2 = new LinkedList<>();
-        Sets set1 = new Sets("Biology",cardList1);
-        Sets set2 = new Sets("Chemistry",cardList1);
+        Sets set1 = new Sets("Biology",array2d);
+        Sets set2 = new Sets("Chemistry",array2d);
         setList1.add(set1);
         setList2.add(set2);
         

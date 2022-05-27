@@ -12,10 +12,10 @@ public class EditSets extends javax.swing.JDialog {
 
     User currentUser;
     Sets set;
-    LinkedList<Cards> cardList = new LinkedList<>();
     //global variable for CardTable
     DefaultTableModel model;
-    String[][] twoDimentional;
+    String[][] CardArray;
+    String[][] UpdatedTwoDimentional;
     //Constructor
     public EditSets(java.awt.Frame parent, boolean modal, Sets currentSet, User CurrentUser) {
         super(parent, modal);
@@ -27,18 +27,15 @@ public class EditSets extends javax.swing.JDialog {
 
         //declares CardTable as global reference
         model = (DefaultTableModel) CardTable.getModel();
-
-        //adds all cards from the set to global cardList variable
-        cardList = (LinkedList<Cards>) set.getCards();
         
         //initialize 2d list
-        twoDimentional = currentSet.getTwoDimentional();
+        CardArray = currentSet.getCardArray();
 
         
         //adds all cards from cardList to Card Table
-        int rowCount = twoDimentional.length;
+        int rowCount = CardArray.length;
         for(int i = 0 ; i < rowCount ; i++){
-                model.addRow(new Object[]{twoDimentional[i][0], twoDimentional[i][1]});
+                model.addRow(new Object[]{CardArray[i][0], CardArray[i][1]});
             }   
     }
 
@@ -238,27 +235,33 @@ public class EditSets extends javax.swing.JDialog {
         } else {
             //deletes current set and erases cardList
             currentUser.removeSets(set);
-            cardList.clear();
-
+            UpdatedTwoDimentional= new String[CardTable.getRowCount()][2];
+            
             //if set already exists, add all cards from set to global cardList
             for (Sets sets : currentUser.getSets()) {
                 if (sets.getName().equals(TitleField.getText())) {
                     int x = currentUser.FindIndexofSet(TitleField.getText());
-                    for (Cards card : sets.getCards()) {
-                        cardList.addLast(card);
+                    for(int r = 0; r<sets.getCardArray().length;r++){
+                        sets.getCardArray()[r][0]=UpdatedTwoDimentional[r][0];
+                        sets.getCardArray()[r][1]=UpdatedTwoDimentional[r][1];
                     }
                     //removes odd set to replace with updated set
                     currentUser.removeSets(x);
                 }
-            }
+            }   
             
             //for every row in cardtable, a new card is made and added to cardlist
+            int x=0;
+            int y=0;
             for (int i = 0; i < CardTable.getRowCount(); i++) {
-                Cards card = new Cards(model.getValueAt(i, 0).toString(), model.getValueAt(i, 1).toString());
-                cardList.add(card);
+                UpdatedTwoDimentional[x][y]=(model.getValueAt(i, 0).toString());
+                y++;
+                UpdatedTwoDimentional[x][y]=(model.getValueAt(i, 1).toString());
+                x++; 
+                y=0;
             }
             //creates a new set to replace the delete one under same name with updated cardlist
-            currentUser.addSets(TitleField.getText(), cardList);
+            currentUser.addSets(TitleField.getText(), UpdatedTwoDimentional);
 
             //opens homescreen and closes current screen passing along the current user
             Home HomeScreen = new Home(currentUser);
