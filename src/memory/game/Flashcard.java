@@ -5,13 +5,6 @@
  */
 package memory.game;
 
-
-import static java.lang.Math.round;
-
-/**
- *
- * @author mcman
- */
 public class Flashcard extends javax.swing.JFrame {
     User currentUser;
     int index = 0;
