@@ -5,24 +5,21 @@
  */
 package memory.game;
 
-import java.util.LinkedList;
-import java.awt.*; 
-import javax.swing.*; 
-import javax.swing.JProgressBar;
-import java.awt.event.*; 
+
+import static java.lang.Math.round;
 
 /**
  *
  * @author mcman
  */
 public class Flashcard extends javax.swing.JFrame {
- User currentUser;
-    static int index = 0;
+    User currentUser;
+    int index = 0;
     static boolean showTerm = true;
     String[][] CardArray;
     String[][] StudyLaterArray;
     int x =0;
-    
+    int value;
     public Flashcard(String[][] cardArray,User  currentUser) {
         //constructor
         initComponents();
@@ -31,6 +28,9 @@ public class Flashcard extends javax.swing.JFrame {
         StudyLaterArray = new String[cardArray.length][2];
         //sets text on card to first card term
         CardButton.setText(CardArray[index][0]);
+        value = (index+1)*100/CardArray.length;
+        ProgressField.setText("Progress " + (index + 1) + "/" + CardArray.length);        
+        jProgressBar1.setValue(value);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -240,22 +240,16 @@ public class Flashcard extends javax.swing.JFrame {
     }//GEN-LAST:event_CardButtonActionPerformed
 
     private void GoRightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GoRightButtonActionPerformed
-        if(index!=0){
-             index--;
-        }
-        if(index!=CardArray.length){
+        if(index!=CardArray.length-1){
             index++;
         }
         CardButton.setText(CardArray[index][0]);
         showTerm = true; 
-                ProgressField.setText("Progress " + (index + 1) + "/" + myCards.size());
+        ProgressField.setText("Progress " + (index + 1) + "/" + CardArray.length);
        
-        //progress bar
-        ProgressNumber.setText(Integer.toString(index));
-        int value = Integer.parseInt(ProgressNumber.getText());
-        int newValue = (index+1/myCards.size())*100;
-        
-        jProgressBar1.setValue(newValue);
+        //progress bar        
+        value = (index+1)*100/CardArray.length;
+        jProgressBar1.setValue(value);
     }//GEN-LAST:event_GoRightButtonActionPerformed
 
     private void GoRightButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_GoRightButtonKeyPressed
@@ -269,11 +263,10 @@ public class Flashcard extends javax.swing.JFrame {
         CardButton.setText(CardArray[index][0]);
         
         showTerm = true;
-                ProgressField.setText("Progress " + (index + 1) + "/" + myCards.size());
+                ProgressField.setText("Progress " + (index + 1) + "/" + CardArray.length);
        
-        //progress bar
-        ProgressNumber.setText(Integer.toString(index));
-        int value = Integer.parseInt(ProgressNumber.getText());
+        //progress bar        
+        value = (index+1)*100/CardArray.length;        
         jProgressBar1.setValue(value);
     }//GEN-LAST:event_GoLeftButtonActionPerformed
 
