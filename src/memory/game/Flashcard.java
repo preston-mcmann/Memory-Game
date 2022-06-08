@@ -5,32 +5,51 @@
  */
 package memory.game;
 
+import java.awt.Image;
+import java.util.ArrayList;
+import javax.swing.ImageIcon;
 
-import static java.lang.Math.round;
-
-/**
- *
- * @author mcman
- */
 public class Flashcard extends javax.swing.JFrame {
     User currentUser;
     int index = 0;
     static boolean showTerm = true;
     String[][] CardArray;
-    String[][] StudyLaterArray;
+    ArrayList<ArrayList<String>> StudyLaterArray;
     int x =0;
     int value;
-    public Flashcard(String[][] cardArray,User  currentUser) {
+    Sets currentSet;
+    public Flashcard(Sets set,User  currentUser) {
         //constructor
-        initComponents();
+        initComponents();    
+        currentSet=set;
         this.currentUser = currentUser;
-        CardArray = cardArray;
-        StudyLaterArray = new String[cardArray.length][2];
+        CardArray = set.getCardArray();
+        StudyLaterArray=set.getStudyArray();
         //sets text on card to first card term
         CardButton.setText(CardArray[index][0]);
         value = (index+1)*100/CardArray.length;
         ProgressField.setText("Progress " + (index + 1) + "/" + CardArray.length);        
         jProgressBar1.setValue(value);
+        boolean starOn = currentSet.contain(CardArray[index][0], CardArray[index][1])!=-1;
+        if(starOn){
+            scaleStar();
+        }else{
+            scaleBlue();
+        }
+    }
+    public void scaleStar(){
+        ImageIcon icon = new ImageIcon("C:\\Users\\mcman\\OneDrive\\Documents\\GitHub\\Memory-Game\\build\\classes\\memory\\game\\StarImage\\Star.png");
+        Image img = icon.getImage();
+        Image imgScale = img.getScaledInstance(Star.getWidth(),Star.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(imgScale);
+        Star.setIcon(scaledIcon);
+    }
+    public void scaleBlue(){
+        ImageIcon icon = new ImageIcon("C:\\Users\\mcman\\OneDrive\\Documents\\GitHub\\Memory-Game\\build\\classes\\memory\\game\\StarImage\\Blue.jpg");
+        Image img = icon.getImage();
+        Image imgScale = img.getScaledInstance(Star.getWidth(),Star.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(imgScale);
+        Star.setIcon(scaledIcon);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,6 +70,7 @@ public class Flashcard extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         BackButton = new javax.swing.JButton();
         jProgressBar1 = new javax.swing.JProgressBar();
+        Star = new javax.swing.JLabel();
         ProgressNumber = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -84,11 +104,6 @@ public class Flashcard extends javax.swing.JFrame {
                 GoRightButtonActionPerformed(evt);
             }
         });
-        GoRightButton.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                GoRightButtonKeyPressed(evt);
-            }
-        });
 
         GoLeftButton.setText("<");
         GoLeftButton.addActionListener(new java.awt.event.ActionListener() {
@@ -98,11 +113,6 @@ public class Flashcard extends javax.swing.JFrame {
         });
 
         ProgressField.setText("Progress");
-        ProgressField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ProgressFieldActionPerformed(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -116,11 +126,11 @@ public class Flashcard extends javax.swing.JFrame {
         });
 
         jProgressBar1.setStringPainted(true);
-        jProgressBar1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jProgressBar1PropertyChange(evt);
-            }
-        });
+
+        Star.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Star.setMaximumSize(new java.awt.Dimension(80, 80));
+        Star.setMinimumSize(new java.awt.Dimension(40, 40));
+        Star.setPreferredSize(new java.awt.Dimension(842, 800));
 
         ProgressNumber.setBackground(new java.awt.Color(0, 51, 102));
         ProgressNumber.setForeground(new java.awt.Color(0, 51, 102));
@@ -135,66 +145,74 @@ public class Flashcard extends javax.swing.JFrame {
                 .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(progressBarLayout.createSequentialGroup()
                         .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, progressBarLayout.createSequentialGroup()
-                                .addComponent(AddTermToStudyLaterButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(ViewStudyLaterButton))
                             .addGroup(progressBarLayout.createSequentialGroup()
                                 .addComponent(BackButton)
                                 .addGap(79, 79, 79)
                                 .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(progressBarLayout.createSequentialGroup()
+                                .addComponent(AddTermToStudyLaterButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(ViewStudyLaterButton)))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, progressBarLayout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, progressBarLayout.createSequentialGroup()
-                                .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(progressBarLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(Star, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(progressBarLayout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(CardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(progressBarLayout.createSequentialGroup()
-                                        .addComponent(GoLeftButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(GoLeftButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(ProgressNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(29, 29, 29)
-                                        .addComponent(GoRightButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(CardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(32, 32, 32))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, progressBarLayout.createSequentialGroup()
-                                .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ProgressNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(ProgressField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(156, 156, 156))))))
+                                        .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, progressBarLayout.createSequentialGroup()
+                                                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(29, 29, 29))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, progressBarLayout.createSequentialGroup()
+                                                .addComponent(ProgressField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(61, 61, 61)))
+                                        .addComponent(GoRightButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(32, 32, 32))))
         );
         progressBarLayout.setVerticalGroup(
             progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, progressBarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BackButton)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addComponent(CardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(progressBarLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(GoLeftButton)
-                            .addComponent(GoRightButton))
-                        .addGap(82, 82, 82))
+                            .addComponent(BackButton)
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, progressBarLayout.createSequentialGroup()
+                        .addComponent(Star, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)))
+                .addComponent(CardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(GoLeftButton)
+                        .addComponent(GoRightButton))
                     .addGroup(progressBarLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(progressBarLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ProgressField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(progressBarLayout.createSequentialGroup()
                                 .addGap(27, 27, 27)
-                                .addComponent(ProgressNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(ProgressNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(progressBarLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ProgressField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGroup(progressBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ViewStudyLaterButton)
                     .addComponent(AddTermToStudyLaterButton))
-                .addGap(8, 8, 8))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -205,24 +223,54 @@ public class Flashcard extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void AddTermToStudyLaterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddTermToStudyLaterButtonActionPerformed
-        StudyLaterArray[x][0]=CardArray[index][0];
-        StudyLaterArray[x][1]=CardArray[index][1];
-        x++;
-    }//GEN-LAST:event_AddTermToStudyLaterButtonActionPerformed
-
-    private void ViewStudyLaterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewStudyLaterButtonActionPerformed
-        StudyLater studyLaterPage = new StudyLater(StudyLaterArray, currentUser);
-        studyLaterPage.setLocationRelativeTo(this);
+    private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
+        Home HomeScreen = new Home(currentUser);
+        HomeScreen.setLocationRelativeTo(this);
         this.dispose();
-        studyLaterPage.setVisible(true);
-    }//GEN-LAST:event_ViewStudyLaterButtonActionPerformed
+        HomeScreen.setVisible(true);
+    }//GEN-LAST:event_BackButtonActionPerformed
+
+    private void GoLeftButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GoLeftButtonActionPerformed
+        if(index!=0){
+            index--;
+        }
+        CardButton.setText(CardArray[index][0]);
+        
+        boolean starOn = currentSet.contain(CardArray[index][0], CardArray[index][1])!=-1;
+        if(starOn){
+            scaleStar();
+        }else{
+            scaleBlue();
+        }   
+        ProgressField.setText("Progress " + (index + 1) + "/" + CardArray.length);
+        //progress bar
+        value = (index+1)*100/CardArray.length;
+        jProgressBar1.setValue(value);
+    }//GEN-LAST:event_GoLeftButtonActionPerformed
+
+    private void GoRightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GoRightButtonActionPerformed
+        if(index!=CardArray.length-1){
+            index++;
+        }
+        CardButton.setText(CardArray[index][0]);
+        boolean starOn = currentSet.contain(CardArray[index][0], CardArray[index][1])!=-1;
+        if(starOn){
+            scaleStar();
+        }else{
+            scaleBlue();
+        }
+        ProgressField.setText("Progress " + (index + 1) + "/" + CardArray.length);
+
+        //progress bar
+        value = (index+1)*100/CardArray.length;
+        jProgressBar1.setValue(value);
+    }//GEN-LAST:event_GoRightButtonActionPerformed
 
     private void CardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CardButtonActionPerformed
         if (showTerm == true) {
@@ -233,57 +281,25 @@ public class Flashcard extends javax.swing.JFrame {
             showTerm = true;
         }
         ProgressField.setText("Progress " + (index + 1) + "/" + CardArray.length);
-
-        
-        
-
     }//GEN-LAST:event_CardButtonActionPerformed
 
-    private void GoRightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GoRightButtonActionPerformed
-        if(index!=CardArray.length-1){
-            index++;
-        }
-        CardButton.setText(CardArray[index][0]);
-        showTerm = true; 
-        ProgressField.setText("Progress " + (index + 1) + "/" + CardArray.length);
-       
-        //progress bar        
-        value = (index+1)*100/CardArray.length;
-        jProgressBar1.setValue(value);
-    }//GEN-LAST:event_GoRightButtonActionPerformed
-
-    private void GoRightButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_GoRightButtonKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_GoRightButtonKeyPressed
-
-    private void GoLeftButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GoLeftButtonActionPerformed
-        if(index!=0){
-            index--;
-        }
-        CardButton.setText(CardArray[index][0]);
-        
-        showTerm = true;
-                ProgressField.setText("Progress " + (index + 1) + "/" + CardArray.length);
-       
-        //progress bar        
-        value = (index+1)*100/CardArray.length;        
-        jProgressBar1.setValue(value);
-    }//GEN-LAST:event_GoLeftButtonActionPerformed
-
-    private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
-        Home HomeScreen = new Home(currentUser);
-        HomeScreen.setLocationRelativeTo(this);
+    private void ViewStudyLaterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewStudyLaterButtonActionPerformed
+        StudyLater studyLaterPage = new StudyLater(currentSet, currentUser);
+        studyLaterPage.setLocationRelativeTo(this);
         this.dispose();
-        HomeScreen.setVisible(true);
-    }//GEN-LAST:event_BackButtonActionPerformed
+        studyLaterPage.setVisible(true);
+    }//GEN-LAST:event_ViewStudyLaterButtonActionPerformed
 
-    private void jProgressBar1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jProgressBar1PropertyChange
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jProgressBar1PropertyChange
+    private void AddTermToStudyLaterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddTermToStudyLaterButtonActionPerformed
+        if(currentSet.contain(CardArray[index][0], CardArray[index][1])==-1){
+            StudyLaterArray.add(new ArrayList<String>());
+            StudyLaterArray.get(x).add(0,CardArray[index][0]);
+            StudyLaterArray.get(x).add(1,CardArray[index][1]);
+            x++;
+            scaleStar();
+        }
 
-    private void ProgressFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProgressFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ProgressFieldActionPerformed
+    }//GEN-LAST:event_AddTermToStudyLaterButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -298,6 +314,7 @@ public class Flashcard extends javax.swing.JFrame {
     private javax.swing.JButton GoRightButton;
     private javax.swing.JTextField ProgressField;
     private javax.swing.JTextField ProgressNumber;
+    private javax.swing.JLabel Star;
     private javax.swing.JButton ViewStudyLaterButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JProgressBar jProgressBar1;
