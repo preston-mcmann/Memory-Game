@@ -93,15 +93,18 @@ public class Home extends javax.swing.JFrame {
         });
 
         FlashCardsButton.setText("Flash Cards");
-
         FlashCardsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FlashCardsButtonActionPerformed(evt);
             }
         });
 
-
         MatchingGameButton.setText("Matching Game");
+        MatchingGameButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MatchingGameButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -189,20 +192,30 @@ public class Home extends javax.swing.JFrame {
 
     private void FlashCardsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FlashCardsButtonActionPerformed
         // TODO add your handling code here:
-        for (int i = 0; i < currentUser.getSets().size(); i++) {
-            if (currentUser.getSets().get(i).getName().equals(SetSelectionBox.getSelectedItem().toString())) {
+         int indexOfSet = currentUser.FindIndexofSet(SetSelectionBox.getSelectedItem().toString());   
+        //sets currentSet as set in idex
+        Sets currentSet = currentUser.getSets().get(indexOfSet);
+       
+        Flashcard flashcards = new Flashcard(currentSet, currentUser);
+        flashcards.setLocationRelativeTo(this);
+        this.dispose();
+        flashcards.setVisible(true);
 
-                
-                Flashcard flashcards = new Flashcard(currentUser.getSets().get(i), currentUser);
-
-                flashcards.setLocationRelativeTo(this);
-
-                this.dispose();
-                flashcards.setVisible(true);
-
-            }
-        }
+            
+        
     }//GEN-LAST:event_FlashCardsButtonActionPerformed
+
+    private void MatchingGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MatchingGameButtonActionPerformed
+                // TODO add your handling code here:
+         int indexOfSet = currentUser.FindIndexofSet(SetSelectionBox.getSelectedItem().toString());   
+        //sets currentSet as set in idex
+        Sets currentSet = currentUser.getSets().get(indexOfSet);
+       
+        MatchingGame matchingGame = new MatchingGame(currentSet, currentUser);
+        matchingGame.setLocationRelativeTo(this);
+        this.dispose();
+        matchingGame.setVisible(true);
+    }//GEN-LAST:event_MatchingGameButtonActionPerformed
 
 
     /**

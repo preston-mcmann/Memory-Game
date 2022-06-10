@@ -20,9 +20,6 @@ public class Sets {
     public String[][] getCardArray() {
         return CardArray;
     }
-    public void setStudyArray( ArrayList<ArrayList<String>> studyLater) {
-        StudyLater=studyLater;
-    }   
     public  ArrayList<ArrayList<String>> getStudyArray() {
         return StudyLater;
     }
@@ -34,6 +31,16 @@ public class Sets {
         int index = -1;
         for (int i = 0; i < StudyLater.size(); i++) {
             if(StudyLater.get(i).get(0).equals(term)&&StudyLater.get(i).get(1).equals(def))
+                index = i;
+            }
+
+        return index;//index of user in list, if -1 then user not in list
+    }
+        
+    public int containArray(String term, String def){
+        int index = -1;
+        for (int i = 0; i < CardArray.length; i++) {
+            if(CardArray[i][0].equals(term)&&CardArray[i][1].equals(def))
                 index = i;
             }
 
