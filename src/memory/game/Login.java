@@ -7,10 +7,6 @@ package memory.game;
 
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author pmcma1
- */
 public class Login extends javax.swing.JFrame {
 
     /**

@@ -6,13 +6,6 @@ package memory.game;
 
 import java.util.LinkedList;
 
-
-
-/**
- *
- * @author mcman
- */
-
 public class User {
     private LinkedList<Sets> Sets;
     String name;

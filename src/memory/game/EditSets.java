@@ -4,7 +4,6 @@
  */
 package memory.game;
 
-import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
