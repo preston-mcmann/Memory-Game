@@ -184,7 +184,7 @@ public class Login extends javax.swing.JFrame {
             int currentUser = loginUsers.FindIndexofUser(Username, Password);
             boolean signedIn = (currentUser != -1);
             if (signedIn) {
-                Home HomeScreen = new Home(loginUsers.getUser(currentUser));
+                Home HomeScreen = new Home(loginUsers.getUser(currentUser),loginUsers);
                 HomeScreen.setLocationRelativeTo(this);
                 this.dispose();
                 HomeScreen.setVisible(true);

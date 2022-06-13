@@ -18,11 +18,13 @@ public class Flashcard extends javax.swing.JFrame {
     int x =0;
     int value;
     Sets currentSet;
-    public Flashcard(Sets set,User  currentUser) {
+    LoginUsers loginUsers;
+    public Flashcard(Sets set,User  currentUser,LoginUsers loginUsers) {
         //constructor
         initComponents();    
         currentSet=set;
         this.currentUser = currentUser;
+        this.loginUsers= loginUsers;
         CardArray = set.getCardArray();
         StudyLaterArray=set.getStudyArray();
         //sets text on card to first card term
@@ -230,7 +232,7 @@ public class Flashcard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
-        Home HomeScreen = new Home(currentUser);
+        Home HomeScreen = new Home(currentUser,loginUsers);
         HomeScreen.setLocationRelativeTo(this);
         this.dispose();
         HomeScreen.setVisible(true);
@@ -284,7 +286,7 @@ public class Flashcard extends javax.swing.JFrame {
     }//GEN-LAST:event_CardButtonActionPerformed
 
     private void ViewStudyLaterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewStudyLaterButtonActionPerformed
-        StudyLater studyLaterPage = new StudyLater(currentSet, currentUser);
+        StudyLater studyLaterPage = new StudyLater(currentSet, currentUser,loginUsers);
         studyLaterPage.setLocationRelativeTo(this);
         this.dispose();
         studyLaterPage.setVisible(true);

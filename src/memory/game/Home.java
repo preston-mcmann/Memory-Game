@@ -13,12 +13,12 @@ import java.util.LinkedList;
 public class Home extends javax.swing.JFrame {
 
     User currentUser;
-    
+    LoginUsers loginUsers;
     //Constructor
-    public Home(User CurrentUser) {
+    public Home(User CurrentUser, LoginUsers loginUsers) {
         initComponents();
         this.currentUser=CurrentUser;
-        
+        this.loginUsers= loginUsers;
         //adds the Sets of a user to selection combo box 
         for (Sets Set : currentUser.getSets()){
             SetSelectionBox.addItem(Set.getName());
@@ -44,6 +44,7 @@ public class Home extends javax.swing.JFrame {
         EditSetsButton = new javax.swing.JButton();
         FlashCardsButton = new javax.swing.JButton();
         MatchingGameButton = new javax.swing.JButton();
+        SignOutButton = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -106,6 +107,13 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        SignOutButton.setText("Sign Out");
+        SignOutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SignOutButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -122,11 +130,17 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(MatchingGameButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(FlashCardsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(34, 34, 34))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(SignOutButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addContainerGap()
+                .addComponent(SignOutButton)
+                .addGap(23, 23, 23)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(FlashCardsButton)
@@ -173,7 +187,7 @@ public class Home extends javax.swing.JFrame {
         //sets currentSet as set in idex
         Sets currentSet = currentUser.getSets().get(indexOfSet);
         //opes EditSets page 
-        EditSets editSetsPage = new EditSets(this, true,currentSet,currentUser);
+        EditSets editSetsPage = new EditSets(this, true,currentSet,currentUser,loginUsers);
         editSetsPage.setLocationRelativeTo(this);
         this.dispose();
         editSetsPage.setVisible(true);
@@ -182,7 +196,7 @@ public class Home extends javax.swing.JFrame {
 
     private void CreateSetsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateSetsButtonActionPerformed
         Sets currentSet = currentUser.addSets("");
-        EditSets editSetsPage = new EditSets(this, true,currentSet,currentUser);
+        EditSets editSetsPage = new EditSets(this, true,currentSet,currentUser,loginUsers);
         editSetsPage.setLocationRelativeTo(this);
         this.dispose();
         editSetsPage.setVisible(true);
@@ -196,7 +210,7 @@ public class Home extends javax.swing.JFrame {
         //sets currentSet as set in idex
         Sets currentSet = currentUser.getSets().get(indexOfSet);
        
-        Flashcard flashcards = new Flashcard(currentSet, currentUser);
+        Flashcard flashcards = new Flashcard(currentSet, currentUser,loginUsers);
         flashcards.setLocationRelativeTo(this);
         this.dispose();
         flashcards.setVisible(true);
@@ -211,11 +225,18 @@ public class Home extends javax.swing.JFrame {
         //sets currentSet as set in idex
         Sets currentSet = currentUser.getSets().get(indexOfSet);
        
-        MatchingGame matchingGame = new MatchingGame(currentSet, currentUser);
+        MatchingGame matchingGame = new MatchingGame(currentSet, currentUser,loginUsers);
         matchingGame.setLocationRelativeTo(this);
         this.dispose();
         matchingGame.setVisible(true);
     }//GEN-LAST:event_MatchingGameButtonActionPerformed
+
+    private void SignOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignOutButtonActionPerformed
+        Login loginScreen = new Login(loginUsers);
+        loginScreen.setLocationRelativeTo(this);
+        this.dispose();
+        loginScreen.setVisible(true);
+    }//GEN-LAST:event_SignOutButtonActionPerformed
 
 
     /**
@@ -229,6 +250,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton FlashCardsButton;
     private javax.swing.JButton MatchingGameButton;
     private javax.swing.JComboBox<String> SetSelectionBox;
+    private javax.swing.JButton SignOutButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

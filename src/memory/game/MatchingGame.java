@@ -31,16 +31,17 @@ public class MatchingGame extends javax.swing.JFrame {
     Sets currentSet;
     DefaultTableModel termTable;
     DefaultTableModel defTable;
+    LoginUsers loginUsers;
     Color red = new Color(204, 0, 0);
     Color Default = new Color(211, 211, 211);
     LocalDateTime start;
 
-    public MatchingGame(Sets set, User currentUser) {
+    public MatchingGame(Sets set, User currentUser, LoginUsers loginUsers) {
         initComponents();
         currentSet = set;
         this.currentUser = currentUser;
         CardArray = set.getCardArray();
-
+        this.loginUsers= loginUsers;
         TermTable.setSelectionBackground(Default);
         DefTable.setSelectionBackground(Default);
         termTable = (DefaultTableModel) TermTable.getModel();
@@ -174,7 +175,7 @@ public class MatchingGame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
-        Home HomeScreen = new Home(currentUser);
+        Home HomeScreen = new Home(currentUser,loginUsers);
         HomeScreen.setLocationRelativeTo(this);
         this.dispose();
         HomeScreen.setVisible(true);
@@ -205,7 +206,7 @@ public class MatchingGame extends javax.swing.JFrame {
             long diffInSeconds = ChronoUnit.SECONDS.between(start, end);
 
                 JOptionPane.showMessageDialog(null, "YOU FINISH IN: " + diffInSeconds+" Seconds");
-                Home HomeScreen = new Home(currentUser);
+                Home HomeScreen = new Home(currentUser,loginUsers);
                 HomeScreen.setLocationRelativeTo(this);
                 this.dispose();
                 HomeScreen.setVisible(true);
