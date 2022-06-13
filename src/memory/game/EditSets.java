@@ -16,11 +16,13 @@ public class EditSets extends javax.swing.JDialog {
     DefaultTableModel model;
     String[][] CardArray;
     String[][] UpdatedTwoDimentional;
+    LoginUsers loginUsers;
     //Constructor
-    public EditSets(java.awt.Frame parent, boolean modal, Sets currentSet, User CurrentUser) {
+    public EditSets(java.awt.Frame parent, boolean modal, Sets currentSet, User CurrentUser, LoginUsers loginUsers) {
         super(parent, modal);
         initComponents();
         this.currentUser = CurrentUser;
+        this.loginUsers= loginUsers;
         this.set = currentSet;
         //sets title to the sets name
         TitleField.setText(set.getName());
@@ -264,7 +266,7 @@ public class EditSets extends javax.swing.JDialog {
             currentUser.addSets(TitleField.getText(), UpdatedTwoDimentional);
 
             //opens homescreen and closes current screen passing along the current user
-            Home HomeScreen = new Home(currentUser);
+            Home HomeScreen = new Home(currentUser,loginUsers);
             HomeScreen.setLocationRelativeTo(this);
             this.dispose();
             HomeScreen.setVisible(true);
@@ -274,7 +276,7 @@ public class EditSets extends javax.swing.JDialog {
 
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
         //opens homescreen and closes current screen passing along the current user
-        Home HomeScreen = new Home(currentUser);
+        Home HomeScreen = new Home(currentUser,loginUsers);
         HomeScreen.setLocationRelativeTo(this);
         this.dispose();
         HomeScreen.setVisible(true);

@@ -13,11 +13,13 @@ public class StudyLater extends javax.swing.JFrame {
     ArrayList<ArrayList<String>> StudyLaterArray;
     DefaultTableModel model;
     Sets currentSet;
-     public StudyLater(Sets set, User currentUser) {
+    LoginUsers loginUsers;
+     public StudyLater(Sets set, User currentUser, LoginUsers loginUsers) {
          //constructor
         initComponents();
         currentSet=set;
         this.currentUser = currentUser;
+        this.loginUsers= loginUsers;
         StudyLaterArray=set.getStudyArray();
         
         //declares CardTable as global reference
@@ -146,7 +148,7 @@ public class StudyLater extends javax.swing.JFrame {
 
     private void HomeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeButtonActionPerformed
         // TODO add your handling code here:
-        Home HomeScreen = new Home(currentUser);
+        Home HomeScreen = new Home(currentUser,loginUsers);
         HomeScreen.setLocationRelativeTo(this);
         this.dispose();
         HomeScreen.setVisible(true);
@@ -161,7 +163,7 @@ public class StudyLater extends javax.swing.JFrame {
 
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
         //opens homescreen and closes current screen passing along the current user
-        Flashcard flashcards = new Flashcard(currentSet, currentUser);
+        Flashcard flashcards = new Flashcard(currentSet, currentUser,loginUsers);
         flashcards.setLocationRelativeTo(this);
         this.dispose();
         flashcards.setVisible(true);
