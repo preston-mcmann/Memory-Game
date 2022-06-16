@@ -1,9 +1,5 @@
 package memory.game;
 
-
-import java.util.LinkedList;
-
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -195,7 +191,9 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_EditSetsButtonActionPerformed
 
     private void CreateSetsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateSetsButtonActionPerformed
+        //creates new set
         Sets currentSet = currentUser.addSets("");
+        //opens edit sets with new set
         EditSets editSetsPage = new EditSets(this, true,currentSet,currentUser,loginUsers);
         editSetsPage.setLocationRelativeTo(this);
         this.dispose();
@@ -209,7 +207,7 @@ public class Home extends javax.swing.JFrame {
          int indexOfSet = currentUser.FindIndexofSet(SetSelectionBox.getSelectedItem().toString());   
         //sets currentSet as set in idex
         Sets currentSet = currentUser.getSets().get(indexOfSet);
-       
+       //opens flashcard
         Flashcard flashcards = new Flashcard(currentSet, currentUser,loginUsers);
         flashcards.setLocationRelativeTo(this);
         this.dispose();
@@ -224,7 +222,7 @@ public class Home extends javax.swing.JFrame {
          int indexOfSet = currentUser.FindIndexofSet(SetSelectionBox.getSelectedItem().toString());   
         //sets currentSet as set in idex
         Sets currentSet = currentUser.getSets().get(indexOfSet);
-       
+       //opens matching game
         MatchingGame matchingGame = new MatchingGame(currentSet, currentUser,loginUsers);
         matchingGame.setLocationRelativeTo(this);
         this.dispose();
@@ -232,6 +230,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_MatchingGameButtonActionPerformed
 
     private void SignOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignOutButtonActionPerformed
+        //opens login form
         Login loginScreen = new Login(loginUsers);
         loginScreen.setLocationRelativeTo(this);
         this.dispose();

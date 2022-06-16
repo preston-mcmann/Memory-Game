@@ -16,10 +16,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.Timer;
 
-/**
- *
- * @author mcman
- */
 public class MatchingGame extends javax.swing.JFrame {
 
     User currentUser;
@@ -36,19 +32,24 @@ public class MatchingGame extends javax.swing.JFrame {
     Color Default = new Color(211, 211, 211);
     LocalDateTime start;
 
-    public MatchingGame(Sets set, User currentUser, LoginUsers loginUsers) {
+    public MatchingGame(Sets currentSet, User currentUser, LoginUsers loginUsers) {
         initComponents();
-        currentSet = set;
+        //constructing variables
+        this.currentSet = currentSet;
         this.currentUser = currentUser;
-        CardArray = set.getCardArray();
-        this.loginUsers= loginUsers;
+        this.CardArray = currentSet.getCardArray();
+        this.loginUsers = loginUsers;
+
+        //declare table variables
         TermTable.setSelectionBackground(Default);
         DefTable.setSelectionBackground(Default);
         termTable = (DefaultTableModel) TermTable.getModel();
         defTable = (DefaultTableModel) DefTable.getModel();
 
+        //record time when frame is opened
         start = LocalDateTime.now();
 
+        //creates a term and definition list to be shuffled
         List<String> TermList = new LinkedList<String>();
         List<String> DefList = new LinkedList<String>();
         for (String[] CardArray1 : CardArray) {
@@ -58,6 +59,7 @@ public class MatchingGame extends javax.swing.JFrame {
         Collections.shuffle(TermList);
         Collections.shuffle(DefList);
 
+        //places shuffled lists into respected tables
         for (int i = 0; i < CardArray.length; i++) {
             termTable.addRow(new Object[]{TermList.get(i)});
             defTable.addRow(new Object[]{DefList.get(i)});
@@ -175,22 +177,27 @@ public class MatchingGame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
-        Home HomeScreen = new Home(currentUser,loginUsers);
+        Home HomeScreen = new Home(currentUser, loginUsers);
         HomeScreen.setLocationRelativeTo(this);
         this.dispose();
         HomeScreen.setVisible(true);
     }//GEN-LAST:event_BackButtonActionPerformed
 
     private void SubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitButtonActionPerformed
+        //if the table isn't empty
         if (TermTable.getRowCount() > 1 && DefTable.getRowCount() > 1) {
+            //get index in table of selected option
             int selectedTerm = TermTable.getSelectedRow();
             int selectedDef = DefTable.getSelectedRow();
+            //set term and def as selected table value
             String Term = TermTable.getValueAt(selectedTerm, 0).toString();
             String Def = DefTable.getValueAt(selectedDef, 0).toString();
+            //if terms match, remove from table
             if (currentSet.containArray(Term, Def) != -1) {
                 termTable.removeRow(selectedTerm);
                 defTable.removeRow(selectedDef);
             } else {
+                //if they don't match, set terms red for 1 second then back to normal
                 TermTable.setSelectionBackground(red);
                 DefTable.setSelectionBackground(red);
                 Timer timer = new Timer(1000, new ActionListener() {
@@ -202,15 +209,20 @@ public class MatchingGame extends javax.swing.JFrame {
                 timer.start();
             }
         } else {
+            //one table is empty, set end time to now
             LocalDateTime end = LocalDateTime.now();
+            //set time difference between start of screen to now
             long diffInSeconds = ChronoUnit.SECONDS.between(start, end);
-
-                JOptionPane.showMessageDialog(null, "YOU FINISH IN: " + diffInSeconds+" Seconds");
-                Home HomeScreen = new Home(currentUser,loginUsers);
-                HomeScreen.setLocationRelativeTo(this);
-                this.dispose();
-                HomeScreen.setVisible(true);
-
+            //removes final row from table
+            termTable.removeRow(0);
+            defTable.removeRow(0);
+            //displays final time you completed game in
+            JOptionPane.showMessageDialog(null, "YOU FINISH IN: " + diffInSeconds + " Seconds");
+            //leaves and opens homescreen
+            Home HomeScreen = new Home(currentUser, loginUsers);
+            HomeScreen.setLocationRelativeTo(this);
+            this.dispose();
+            HomeScreen.setVisible(true);
 
         }
     }//GEN-LAST:event_SubmitButtonActionPerformed

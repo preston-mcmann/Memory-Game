@@ -32,6 +32,7 @@ public class Flashcard extends javax.swing.JFrame {
         value = (index+1)*100/CardArray.length;
         ProgressField.setText("Progress " + (index + 1) + "/" + CardArray.length);        
         jProgressBar1.setValue(value);
+        //if card is in study later, add a star
         boolean starOn = currentSet.contain(CardArray[index][0], CardArray[index][1])!=-1;
         if(starOn){
             scaleStar();
@@ -46,7 +47,7 @@ public class Flashcard extends javax.swing.JFrame {
         ImageIcon scaledIcon = new ImageIcon(imgScale);
         Star.setIcon(scaledIcon);
     }
-    public void scaleBlue(){
+    public void scaleBlue(){       
         ImageIcon icon = new ImageIcon("C:\\Users\\mcman\\OneDrive\\Documents\\GitHub\\Memory-Game\\build\\classes\\memory\\game\\StarImage\\Blue.jpg");
         Image img = icon.getImage();
         Image imgScale = img.getScaledInstance(Star.getWidth(),Star.getHeight(), Image.SCALE_SMOOTH);
@@ -232,6 +233,7 @@ public class Flashcard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
+        //opens homescreen
         Home HomeScreen = new Home(currentUser,loginUsers);
         HomeScreen.setLocationRelativeTo(this);
         this.dispose();
@@ -239,11 +241,12 @@ public class Flashcard extends javax.swing.JFrame {
     }//GEN-LAST:event_BackButtonActionPerformed
 
     private void GoLeftButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GoLeftButtonActionPerformed
+        //if index isn't out of bounds, flip to next card
         if(index!=0){
             index--;
         }
         CardButton.setText(CardArray[index][0]);
-        
+        //if card is in study later, add a star
         boolean starOn = currentSet.contain(CardArray[index][0], CardArray[index][1])!=-1;
         if(starOn){
             scaleStar();
@@ -257,10 +260,12 @@ public class Flashcard extends javax.swing.JFrame {
     }//GEN-LAST:event_GoLeftButtonActionPerformed
 
     private void GoRightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GoRightButtonActionPerformed
+        //if index isn't out of bounds, flip to next card
         if(index!=CardArray.length-1){
             index++;
         }
         CardButton.setText(CardArray[index][0]);
+        //if card is in study later, add a star
         boolean starOn = currentSet.contain(CardArray[index][0], CardArray[index][1])!=-1;
         if(starOn){
             scaleStar();
