@@ -4,51 +4,46 @@
  */
 package memory.game;
 
-import java.util.List;
+import java.util.ArrayList;
 
-/**
- *
- * @author mcman
- */
 public class Sets {
 
     String name;
-    private static List<Cards> cards;
-
-    public Sets(String name, List<Cards> cards) {
-        this.name = name;
-        this.cards = cards;
+    String[][] CardArray;
+    ArrayList<ArrayList<String>> StudyLater = new ArrayList<ArrayList<String>>();
+    //Constructor
+    public Sets(String name, String[][] cardArray){
+        this.name=name;    
+        CardArray=cardArray;
     }
 
-    public static List<Cards> getCards() {
-        return cards;
+    public String[][] getCardArray() {
+        return CardArray;
     }
-
-    public void addCards(List<Cards> cards) {
-        cards.addAll(cards);
+    public  ArrayList<ArrayList<String>> getStudyArray() {
+        return StudyLater;
     }
-
-    public Cards makeCards(String term, String def) {
-        Cards Card = new Cards(term, def);
-        return Card;
-    }
-
-    public void print() {
-        for (Cards card : cards) {
-            System.out.println(card.getTerm());
-            System.out.println(card.getDefinition());
-        }
-    }
-
-    public static void setCards(List<Cards> cards) {
-        Sets.cards = cards;
-    }
-
+    //gets name of set
     public String getName() {
         return name;
     }
+    public int contain(String term, String def){
+        int index = -1;
+        for (int i = 0; i < StudyLater.size(); i++) {
+            if(StudyLater.get(i).get(0).equals(term)&&StudyLater.get(i).get(1).equals(def))
+                index = i;
+            }
 
-    public void setName(String name) {
-        this.name = name;
+        return index;//index of user in list, if -1 then user not in list
+    }
+        
+    public int containArray(String term, String def){
+        int index = -1;
+        for (int i = 0; i < CardArray.length; i++) {
+            if(CardArray[i][0].equals(term)&&CardArray[i][1].equals(def))
+                index = i;
+            }
+
+        return index;//index of user in list, if -1 then user not in list
     }
 }

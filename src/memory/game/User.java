@@ -4,43 +4,60 @@
  */
 package memory.game;
 
-import java.util.List;
-
-/**
- *
- * @author mcman
- */
+import java.util.LinkedList;
 
 public class User {
-    private static List<Sets> Sets;
+    private LinkedList<Sets> Sets;
     String name;
     String password;
-    public User(String name, String password, List<Sets> Sets){
+    boolean study;
+    
+    //Constructor
+    public User(String name, String password, LinkedList<Sets> Sets){
         this.name=name;
         this.password= password;
         this.Sets=Sets;
+        
     }
+    //removes set that is passed
     public void removeSets(Sets set){
         Sets.remove(set);
     }
-    public Sets addSets(String name, List<Cards> cardList){
-        Sets sets = new Sets(name, cardList);
+    
+    //overrides and removes set at index
+    public void removeSets(int index){
+        Sets.remove(index);
+    }
+    
+    //adds set with only name
+    public Sets addSets(String name){
+        String[][] cardArray = new String[0][2];
+        Sets sets = new Sets(name, cardArray);
         Sets.add(sets);
         return sets;
     }
-    public static List<Sets> getSets() {
+    
+     //overrides and adds a set with a name and cardlist
+    public Sets addSets(String name, String[][] cardArray){
+        /*for(int r = 0; r<cardArray.length;r++){
+                Cards card = new Cards(cardArray[r][0],cardArray[r][1]);
+                cardList.add(card);
+        }*/
+        Sets sets = new Sets(name, cardArray);
+        Sets.add(sets);
+        return sets;
+    }
+                        
+
+
+    
+    //returns sets list
+    public LinkedList<Sets> getSets() {
         return Sets;
     }
-    public void print(){
-        for (Sets set:Sets){
-            System.out.println(set.getName());
-        }
-    }
-    public Sets makeSet(String name,List<Cards> Card ){
-        Sets set = new Sets(name, Card);
-        return set;
-    }
-    public static int compare(String name) {
+
+    //finds the index of a set in setlist when given a name
+    public int FindIndexofSet(String name) {
         int index = -1;
         for (int i = 0; i < Sets.size(); i++) {
              if(Sets.get(i).getName().equals(name)){
@@ -51,29 +68,13 @@ public class User {
         return index;//index of user in list, if -1 then user not in list
         }
 
-    public static void setSets(List<Sets> Sets) {
-        User.Sets = Sets;
-    }
-    
+    //gets name of user
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    //gets password of user
     public String getPassword() {
         return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    
-    public User(String name, String password){
-        this.name=name;
-        this.password=password;
     }
 }
